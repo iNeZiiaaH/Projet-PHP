@@ -1,3 +1,6 @@
+<?php
+?>
+
 <!doctype html>
 <html lang="en">
     <head>
@@ -23,6 +26,7 @@
             <label class="form-check-label" for="exampleCheck1">Se souvenir de moi</label>
           </div>
           <button type="submit" class="btn btn-dark">Connexion</button>
+          <button type="submit"  class="btn btn-dark g-3">S'inscrire</button>
         </form>
 
     
