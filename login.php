@@ -8,22 +8,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-    <link rel="stylesheet" href="./template/style.css">  
+    <link rel="stylesheet" href="../template/style.css">  
     </head>
     <body>
         <h1 class="text-center">Connectez Vous !</h1>
-        <?php
-  if (isset($_GET['error'])) {
-    switch ($_GET['error']) {
-      case "1":
-        echo "Nom d'utilisateur ou mot de passe incorrect.";
-        break;
-      case "2":
-        echo "Veuillez renseigner une connexion.";
-        break;
-      } 
-    }
-    ?>
+        <div class="alert alert-danger text-center">
+          <?php
+            if (isset($_GET['error'])) {
+              switch ($_GET['error']) {
+                case "1":
+          echo "Nom d'utilisateur ou mot de passe incorrect.";
+          break;
+                case "2":
+          echo "Veuillez renseigner une connexion.";
+          break;
+                } 
+              }
+              ?>
+        </div>
         <form class="row col-lg-4 mx-auto mt-5 text-center" method="post" action="login-process.php">
           <div class="mb-3">
             <label class="form-label">Login</label>
