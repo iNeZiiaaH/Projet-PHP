@@ -7,7 +7,7 @@ $password = $_POST['pass'];
 // requête SQL pour récuperer la colonne 
 $query = "SELECT * FROM Utilisateur WHERE login = :login";
 $stmt = $pdo->prepare($query);
-$stmt->bindValue(':login', $login);
+$stmt->bindValue(':login', $login, PDO::PARAM_INT);
 $stmt->execute(); 
 $user = $stmt->fetch(PDO::FETCH_ASSOC); 
 

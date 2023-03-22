@@ -32,29 +32,35 @@ require_once 'Layout/navbar.php'; ?>
 <div class="d-flex justify-content-end mx-5">
   <button type="button" class="btn btn-outline-secondary btn-lg" onclick="location='Add-Client.php ';">Modifier Un Client</button>
   <button type="button" class="btn btn-outline-secondary btn-lg" onclick="location='Add-Client.php ';">Ajouter Client</button>
+  <a href=""></a>
 </div>
 
 <?php
 
-      $clientId = $_GET['id'];
+      // condition pour que la reqête s'execute que si le client est renseigné
+      if (isset($_GET['id'])){
+        
+        $clientId = $_GET['id'];
 
-      // Je me sers de mon clientId pour exécuter une requête SQL
-      $query= "SELECT * FROM client WHERE id=$clientId";
-      $stmt = $pdo->prepare($query);
-      $stmt->execute();
-      $client = $stmt->fetch(); 
-      
-      //  condition si aucun client n'est trouvé
-      if ($client === false) {
-        http_response_code(404);
-        exit('Produit non trouvé');
-      }
-      ?>
-      <!-- Affichage des informations des clients  -->
-      <h1><?php echo $client['nom']; ?></h1>
-      <h2><?php echo $client['domaine']; ?></h2>
-      <h2><?php echo $client['adresse']; ?></h2>
-      <h2><?php echo $client['ville']; ?></h2>
-      <h2><?php echo $client['code_postal']; ?></h2>
-      <h2><?php echo $client['pays']; ?></h2>
-    <?php require_once 'Layout/footer.php';
+        $query= "SELECT * FROM client WHERE id=:id";
+        $stmt = $pdo->prepare($query);
+        $stmt->execute(
+          ['id' => $clientId 
+        ]);
+        $client = $stmt->fetch(); 
+        
+        //  condition si aucun client n'est trouvé
+        if ($client === false) {
+          http_response_code(404);
+          exit('Client non trouvé');
+        }
+
+        ?>
+        <h1><?php echo $client['nom']; ?></h1>
+        <h2><?php echo $client['domaine']; ?></h2>
+        <h2><?php echo $client['adresse']; ?></h2>
+        <h2><?php echo $client['ville']; ?></h2>
+        <h2><?php echo $client['code_postal']; ?></h2>
+        <h2><?php echo $client['pays']; ?></h2>
+      <?php }
+      require_once 'Layout/footer.php';
