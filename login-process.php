@@ -1,4 +1,5 @@
 <?php
+require_once 'Classes/LoginError.php';
 require_once './bdd-link/bdd-link.php';
 
 $login = $_POST['login'];
@@ -17,5 +18,5 @@ if ($user == $user AND $password == $user['pass']) {
     header("location: Accueil.php?success=1");
     exit;
 } else {
-    header("location: login.php?error=1");
+    header('location: login.php?error=' . LoginError::LOGIN_INVALID);
 }

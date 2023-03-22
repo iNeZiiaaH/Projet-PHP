@@ -8,6 +8,7 @@
       <div class="navbar-nav">
         <a class="nav-link" href="Client.php">Client</a>
         <a class="nav-link" href="Contact.php">Contact</a>
+        <a class="nav-link" href="Facture.php">Facture</a>
         <a class="nav-link" href="logout.php">Déconnexion</a>
       </div>
     </div>

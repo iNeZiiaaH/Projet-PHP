@@ -1,7 +1,8 @@
 <?php
+require_once 'Classes/LoginError.php';
 session_start();
 if(!$_SESSION['connected']){
-    header('Location: login.php?error=2');
+    header('location: login.php?error=' . LoginError::CONNECTION_FAILED);
 }
 
 require_once 'Layout/header.php';
