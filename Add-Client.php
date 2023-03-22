@@ -1,5 +1,6 @@
 <?php
 require_once 'Classes/LoginError.php';
+require_once 'Classes/AddClientSuccess.php';
 
 // condition qui dis que si utilisateur n'est pas connecté alors il est renvoyé vers la page login.php
 session_start();
@@ -44,3 +45,9 @@ require_once 'Layout/navbar.php';
         <button type="submit" value="Connexion" class="btn btn-dark">Ajouter</button>
     </div>
 </form>
+
+<?php if (array_key_exists('success', $_GET)) { ?>
+  <div class="alert alert-success text-center">
+    <?php echo ClientSuccess::getSuccessMessage(intval($_GET['success'])); ?>
+  </div>
+<?php } ?>

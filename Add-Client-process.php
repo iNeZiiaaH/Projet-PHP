@@ -1,5 +1,6 @@
 <?php
 require_once 'Classes/LoginError.php';
+require_once 'Classes/AddClientSuccess.php';
 
 // condition qui dis que si utilisateur n'est pas connecté alors il est renvoyé vers la page login.php
 session_start();
@@ -51,5 +52,5 @@ if ($count > 0) {
     $stmt->execute();
     
     // Afficher un message de confirmation
-    echo 'Client ajouté avec succès.';
+    header('location: Add-Client.php?success=' . ClientSuccess::ADD_CLIENT_SUCCESS);
 }
