@@ -36,7 +36,7 @@ require_once 'Layout/navbar.php';
     </div>
     <div class="col-md-4">
         <label for="inputCodePostal" class="form-label">Code postal</label>
-        <input type="text" name="code_postal" class="form-control" id="inputCodePostal" maxlength="5" required>
+        <input type="number" name="code_postal" class="form-control" id="inputCodePostal" maxlength="5" required>
     </div>
     <div class="col-md-4">
         <label for="inputPays" class="form-label">Pays</label>
