@@ -10,11 +10,11 @@ $password = $_POST['pass'];
 $query = "SELECT * FROM Utilisateur WHERE login = :login";
 $stmt = $pdo->prepare($query);
 $stmt->bindValue(':login', $login, PDO::PARAM_INT);
-$stmt->execute(); 
-$user = $stmt->fetch(PDO::FETCH_ASSOC); 
+$stmt->execute();
+$user = $stmt->fetch(PDO::FETCH_ASSOC);
 
 session_start();
-if ($user == $user AND $password == $user['pass']) {
+if ($user == $user and $password == $user['pass']) {
     $_SESSION['connected'] = true;
     header('location: Accueil.php?success=' . LoginSuccess::LOGIN_SUCCESS);
     exit;

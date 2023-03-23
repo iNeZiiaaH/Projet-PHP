@@ -29,10 +29,7 @@ require_once 'Layout/navbar.php'; ?>
     </select>
     <button type="submit" class="btn btn-dark">Rechercher</button>
   </form>
-  <div class="d-flex gap-3">
-    <button type="button" class="btn btn-outline-dark" onclick="location='Add-Client.php ';">Modifier Un Client</button>
-    <button type="button" class="btn btn-outline-dark" onclick="location='Add-Client.php ';">Ajouter Client</button>
-  </div>
+  <button type="button" class="btn btn-outline-dark" onclick="location='Add-Client.php ';">Ajouter Client</button>
 </div>
 
 
@@ -65,7 +62,9 @@ if (isset($_GET['id'])) {
       <p class="card-text"><?php echo $client['ville'] ?></p>
       <p class="card-text"><?php echo $client['code_postal'] ?></p>
       <p class="card-text"><?php echo $client['pays'] ?></p>
-      <a href="#" class="btn btn-dark">Modifier Client</a>
+      <a href="ModifyClient.php?id=<?php echo $client['id']; ?>" class="btn btn-dark">Modifier Client</a>
+      <br></br>
+      <a href="DeleteClient.php" class="btn btn-dark">Supprimer Client</a>
     </div>
   </div>
 <?php }

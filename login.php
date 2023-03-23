@@ -1,8 +1,7 @@
 <?php
-
+// Récupération de la classe des erreurs 
 require_once 'Classes/LoginError.php';
-require_once 'Classes/LoginSuccess.php';
-require_once 'Layout/header.php'; ?>
+?>
 
 
 <h1 class="text-center">Connectez Vous !</h1>
@@ -11,7 +10,9 @@ require_once 'Layout/header.php'; ?>
   <div class="alert alert-danger text-center">
     <?php echo LoginError::getErrorMessage(intval($_GET['error'])); ?>
   </div>
-  <?php } ?>
+<?php }
+
+require_once 'Layout/header.php'; ?>
 
 </div>
 <form class="row col-lg-4 mx-auto mt-5 text-center" method="post" action="login-process.php">
@@ -25,8 +26,5 @@ require_once 'Layout/header.php'; ?>
   </div>
   <button type="submit" class="btn btn-dark" required>Connexion</button>
 </form>
-
-
-
 
 <?php require_once 'Layout/footer.php';
