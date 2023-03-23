@@ -64,7 +64,7 @@ if (isset($_GET['id'])) {
       <p class="card-text"><?php echo $client['pays'] ?></p>
       <a href="ModifyClient.php?id=<?php echo $client['id']; ?>" class="btn btn-dark">Modifier Client</a>
       <br></br>
-      <a href="DeleteClient.php" class="btn btn-dark">Supprimer Client</a>
+      <a href="DeleteClient.php?id=<?php echo $client['id']; ?>" class="btn btn-dark">Supprimer Client</a>
     </div>
   </div>
 <?php }
