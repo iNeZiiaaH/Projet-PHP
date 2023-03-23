@@ -32,15 +32,15 @@ require_once 'Layout/navbar.php';
     </div>
     <div class="col-md-6">
         <label for="inputCity" class="form-label">Ville</label>
-        <input type="text" name="ville" class="form-control" id="inputVille" required>
+        <input type="text" name="ville" class="form-control" id="inputVille" placeholder="Lyon" required>
     </div>
     <div class="col-md-4">
         <label for="inputCodePostal" class="form-label">Code postal</label>
-        <input type="number" name="code_postal" class="form-control" id="inputCodePostal" maxlength="5" required>
+        <input type="number" name="code_postal" class="form-control" id="inputCodePostal" placeholder="00000" maxlength="5" required>
     </div>
     <div class="col-md-4">
         <label for="inputPays" class="form-label">Pays</label>
-        <input type="text" name="pays" class="form-control" id="inputPays" required>
+        <input type="text" name="pays" class="form-control" id="inputPays" placeholder="France" required>
     </div>
     <div class="col-12">
         <button type="submit" value="Connexion" class="btn btn-dark">Ajouter</button>

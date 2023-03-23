@@ -1,5 +1,7 @@
 <?php
+// Récupération des fonctions
 require_once 'functions/utils.php';
+
 // Récupération des classes pour les erreurs et les succès
 require_once 'Classes/LoginError.php';
 require_once 'Classes/LoginSuccess.php';

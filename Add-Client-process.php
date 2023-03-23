@@ -18,6 +18,7 @@ if (empty($_POST['email']) || empty($_POST['nom']) || empty($_POST['domaine']) |
 // On récupère la BDD
 require_once 'bdd-link/bdd-link.php';
 
+// On récupère les champs voulu
 $email = $_POST['email'];
 $nom = $_POST['nom'];
 $domaine = $_POST['domaine'];
@@ -26,6 +27,7 @@ $ville = $_POST['ville'];
 $code_postal = $_POST['code_postal'];
 $pays = $_POST['pays'];
 
+// On prépare la requête pour pouvoir ajouter des champs au client
 $stmt = $pdo->prepare('SELECT COUNT(*) FROM client WHERE email = ? && nom = ? && domaine = ? && adresse = ? && ville = ? && code_postal = ? && pays = ?');
 $stmt->bindValue(1, $email, PDO::PARAM_STR);
 $stmt->bindValue(2, $nom, PDO::PARAM_STR);
