@@ -1,9 +1,10 @@
 <?php
+require_once 'functions/utils.php';
 require_once 'Classes/LoginError.php';
 // condition qui dis que si utilisateur n'est pas connecté alors il est renvoyé vers la page login.php
 session_start();
 if (!$_SESSION['connected']) {
-  header('location: login.php?error=' . LoginError::CONNECTION_FAILED);
+  redirect('login.php?error=' . LoginError::CONNECTION_FAILED);
 }
 // Récupération Base de donnée 
 require_once 'bdd-link/bdd-link.php';
@@ -32,9 +33,7 @@ require_once 'Layout/navbar.php'; ?>
   <button type="button" class="btn btn-outline-dark" onclick="location='Add-Client.php ';">Ajouter Client</button>
 </div>
 
-
 <?php
-
 // condition pour que la reqête s'execute que si le client est renseigné
 if (isset($_GET['id'])) {
 
@@ -48,7 +47,6 @@ if (isset($_GET['id'])) {
   $client = $stmt->fetch();
 
   //  condition si aucun client n'est trouvé
-
   if ($client === false) {
     http_response_code(404);
     exit('Client non trouvé');

@@ -1,11 +1,12 @@
 <?php
+require_once 'functions/utils.php';
 require_once 'Classes/LoginError.php';
 require_once 'Classes/AddClientSuccess.php';
 
 // condition qui dis que si utilisateur n'est pas connecté alors il est renvoyé vers la page login.php
 session_start();
 if (!$_SESSION['connected']) {
-    header('location: login.php?error=' . LoginError::CONNECTION_FAILED);
+    redirect('login.php?error=' . LoginError::CONNECTION_FAILED);
 }
 
 // Condition pour que les champs sois tous remplis sinon il ne peut pas envoyer la requête
@@ -53,5 +54,5 @@ if ($count > 0) {
     $stmt->execute();
 
     // Afficher un message de confirmation
-    header('location: Add-Client.php?success=' . ClientSuccess::ADD_CLIENT_SUCCESS);
+    redirect('Add-Client.php?success=' . ClientSuccess::ADD_CLIENT_SUCCESS);
 }

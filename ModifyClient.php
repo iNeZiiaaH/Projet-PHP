@@ -1,8 +1,9 @@
 <?php
+require_once 'functions/utils.php';
 // condition qui dis que si utilisateur n'est pas connecté alors il est renvoyé vers la page login.php
 session_start();
 if (!$_SESSION['connected']) {
-    header('location: login.php?error=' . LoginError::CONNECTION_FAILED);
+    redirect('login.php?error=' . LoginError::CONNECTION_FAILED);
 }
 // on récupère la base de donnée
 require_once 'bdd-link/bdd-link.php';

@@ -1,4 +1,5 @@
 <?php
+require_once 'functions/utils.php';
 require_once 'Classes/LoginError.php';
 require_once 'Classes/LoginSuccess.php';
 require_once './bdd-link/bdd-link.php';
@@ -16,8 +17,8 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
 session_start();
 if ($user == $user and $password == $user['pass']) {
     $_SESSION['connected'] = true;
-    header('location: Accueil.php?success=' . LoginSuccess::LOGIN_SUCCESS);
+    redirect('Accueil.php?success=' . LoginSuccess::LOGIN_SUCCESS);
     exit;
 } else {
-    header('location: login.php?error=' . LoginError::LOGIN_INVALID);
+    redirect('login.php?error=' . LoginError::LOGIN_INVALID);
 }
