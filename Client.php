@@ -55,6 +55,7 @@ if (isset($_GET['id'])) {
   <div class="card d-flex mx-auto mt-5" style="width: 18rem;">
     <div class="card-body text-center">
       <h5 class="card-title"><?php echo $client['nom']; ?></h5>
+      <p class="card-text"><?php echo $client['email'] ?></p>
       <p class="card-text"><?php echo $client['domaine'] ?></p>
       <p class="card-text"><?php echo $client['adresse'] ?></p>
       <p class="card-text"><?php echo $client['ville'] ?></p>

@@ -11,7 +11,6 @@ if (!$_SESSION['connected']) {
 
 require_once 'Layout/header.php';
 require_once 'Layout/navbar.php';
-
 ?>
 
 <form class="row g-3" action="Add-Client-process.php" method="POST">
@@ -52,4 +51,6 @@ require_once 'Layout/navbar.php';
     <div class="alert alert-success text-center">
         <?php echo ClientSuccess::getSuccessMessage(intval($_GET['success'])); ?>
     </div>
-<?php } ?>
+<?php }
+
+require_once 'Layout/footer.php';?>
