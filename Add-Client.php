@@ -1,6 +1,7 @@
 <?php
 require_once 'functions/utils.php';
 require_once 'Classes/LoginError.php';
+require_once 'Classes/AddClientError.php';
 require_once 'Classes/AddClientSuccess.php';
 
 // condition qui dis que si utilisateur n'est pas connecté alors il est renvoyé vers la page login.php
@@ -53,4 +54,10 @@ require_once 'Layout/navbar.php';
     </div>
 <?php }
 
-require_once 'Layout/footer.php';?>
+if (array_key_exists('error', $_GET)) { ?>
+    <div class="alert alert-danger text-center">
+        <?php echo ClientErro::getErrorMessage(intval($_GET['error'])); ?>
+    </div>
+<?php }
+
+require_once 'Layout/footer.php'; ?>

@@ -1,6 +1,7 @@
 <?php
 require_once 'functions/utils.php';
 require_once 'Classes/LoginError.php';
+require_once 'Classes/AddClientError.php';
 require_once 'Classes/AddClientSuccess.php';
 
 // condition qui dis que si utilisateur n'est pas connecté alors il est renvoyé vers la page login.php
@@ -36,7 +37,7 @@ try {
 
     //condition si un utilisateur existe deja , grace a la requête sql au dessus
     if ($count > 0) {
-        echo 'Un Client existe déjà avec cette adresse email.';
+        redirect('Add-Client.php?error=' . ClientErro::EMAIL_EXISTS ); 
     } else {
 
         // Ajouter le cleint à la base de données
