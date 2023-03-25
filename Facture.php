@@ -61,14 +61,17 @@ $stmt->execute();
 
 		for (var i = 0; i < labels.length; i++) {
 			var label = document.createElement("label");
-			label.textContent = labels[i] + ":";
+			label.textContent = labels[i] + " :";
 
 			var input = document.createElement("input");
 			input.type = i === 0 ? "text" : "number";
-			input.name = "lignes_facture[" + index + "][" + labels[i].toLowerCase().replace(" ", "_") + "]";
+			input.name = "lignes_facture[" + index + "][" + labels[i].toLowerCase().replace("  ", "_") + "]";
 			input.min = i === 1 ? 1 : 0;
 			input.step = "0.01";
 			input.required = true;
+			label.style.margin = "10px 0";
+            input.style.margin = "10px 0";
+
 
 			nouvelleLigneFacture.appendChild(label);
 			nouvelleLigneFacture.appendChild(input);

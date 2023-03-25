@@ -1,4 +1,10 @@
 <?php
+require_once 'Classes/ModifyClientSuccess.php';
+require_once 'functions/utils.php';
+
+
+require_once 'bdd-link/bdd-link.php';
+
 
 if (isset($_POST['modifier_client'])) {
 
@@ -8,6 +14,7 @@ if (isset($_POST['modifier_client'])) {
         exit;
     }
 
+
     $id_client = $_GET['id'];
     $email = $_POST['email'];
     $nom = $_POST['nom'];
@@ -16,7 +23,6 @@ if (isset($_POST['modifier_client'])) {
     $ville = $_POST['ville'];
     $code_postal = $_POST['code_postal'];
     $pays = $_POST['pays'];
-
 
 
     $stmt = $pdo->prepare('UPDATE client SET email = ?, nom = ?, domaine = ?, adresse = ?, ville = ?, code_postal = ?, pays = ? WHERE id = ?');
@@ -32,9 +38,9 @@ if (isset($_POST['modifier_client'])) {
     ]);
 
 
-    if (!$result) {
-        echo "Erreur de la modification du client";
+    if ($result) {
+        redirect('ModifyClient.php?success=' . ModifyClientSuccess::MODIFY_CLIENT_SUCCESS); 
     } else {
-        echo "Le client a été modifié";
+        echo "Erreur de la modification du client";
     }
 }

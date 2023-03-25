@@ -1,5 +1,6 @@
 <?php
 require_once 'functions/utils.php';
+require_once 'Classes/ModifyClientSuccess.php';
 // condition qui dis que si utilisateur n'est pas connecté alors il est renvoyé vers la page login.php
 session_start();
 if (!$_SESSION['connected']) {
@@ -24,6 +25,8 @@ $adresse = $donnees_client['adresse'];
 $ville = $donnees_client['ville'];
 $code_postal = $donnees_client['code_postal'];
 $pays = $donnees_client['pays'];
+
+
 
 
 require_once 'Layout/header.php';
@@ -53,7 +56,7 @@ require_once 'Layout/navbar.php';
     </div>
     <div class="col-md-4">
         <label for="inputCodePostal" class="form-label">Code postal</label>
-        <input type="text" name="code_postal" value="<?php echo $code_postal ?>" class="form-control" id="inputCodePostal">
+        <input type="number" name="code_postal" value="<?php echo $code_postal ?>" class="form-control" id="inputCodePostal">
     </div>
     <div class="col-md-4">
         <label for="inputPays" class="form-label">Pays</label>
@@ -64,7 +67,15 @@ require_once 'Layout/navbar.php';
     </div>
 </form>
 
+
 <?php
 // On vient récupèrer le script d'execution pour modifier le client
 require_once 'ModifyClientProcess.php';
+
+if (array_key_exists('success', $_GET)) { ?>
+    <div class="alert alert-success text-center">
+        <?php echo ModifyClientSuccess::getSuccessMessage(intval($_GET['success'])); ?>
+    </div>
+<?php }
+
 require_once 'Layout/footer.php';

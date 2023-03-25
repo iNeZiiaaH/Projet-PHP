@@ -1,11 +1,14 @@
 <?php
 require_once 'functions/utils.php';
 require_once 'Classes/LoginError.php';
+require_once 'Classes/DeleteClientSuccess.php';
+
 // condition qui dis que si utilisateur n'est pas connecté alors il est renvoyé vers la page login.php
 session_start();
 if (!$_SESSION['connected']) {
   redirect('login.php?error=' . LoginError::CONNECTION_FAILED);
 }
+
 // Récupération Base de donnée 
 require_once 'bdd-link/bdd-link.php';
 
@@ -66,5 +69,14 @@ if (isset($_GET['id'])) {
       <a href="DeleteClient.php?id=<?php echo $client['id']; ?>" class="btn btn-dark">Supprimer Client</a>
     </div>
   </div>
+
 <?php }
+
+// Afficher le message que le client à bien été supprimé
+if (array_key_exists('success', $_GET)) { ?>
+  <div class="alert alert-success text-center">
+    <?php echo DeleteClientSuccess::getSuccessMessage(intval($_GET['success'])); ?>
+  </div>
+<?php }
+
 require_once 'Layout/footer.php';
