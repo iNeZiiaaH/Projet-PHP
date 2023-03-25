@@ -1,49 +1,49 @@
 <?php
 require_once 'functions/utils.php';
 
-// // Condition pour que les champs sois tous remplis sinon il ne peut pas envoyer la requête
-// if (empty($_POST['email']) || empty($_POST['nom']) || empty($_POST['domaine']) || empty($_POST['adresse']) || empty($_POST['ville']) || empty($_POST['code_postal']) || empty($_POST['pays'])) {
-//     echo 'Veuillez remplire tous les champs';
-//     exit;
-// }
-
+// récupération de la BDD
 require_once 'bdd-link/bdd-link.php';
 
+// Vérification si le formulaire a été soumis.
+if (isset($_POST) && !empty($_POST)) {
+    
+    // Validation du formulaire 
+    $client_id = $_POST["client_id"];
+    $date_facture = $_POST["date_facture"];
+    $total = $_POST["total"];
+    $commentaire = $_POST["commentaire"];
+    $description = $_POST["description"];
+    $quantite = $_POST["quantite"];
+    $prix_unitaire = $_POST["prix_unitaire"];
+    $prix_total = $_POST["prix_total"];
 
-// if (isset($_POST['submit'])) {
-//     // Récupération des données du formulaire de création de facture
-//     $numero_facture = isset($_POST['numero_facture']) ? $_POST['numero_facture'] : '';
-//     $date_facture =isset($_POST['date_facture']) ? $_POST['date_facture'] : '';
-//     $id_client = isset($_POST['client_id']) ? $_POST['client_id'] : '';
-//     $commentaire = $_POST['commentaire'];
 
-//     // Insertion de la nouvelle facture dans la base de données
-//     $stmt = $pdo->prepare('INSERT INTO facture (numero_facture, date_facture, client_id, commentaire) VALUES (?, ?, ?, ?)');
-//     if(!empty($numero_facture)){
-//         $stmt->execute([$numero_facture, $date_facture, $client_id, $nom_produit]);
-//     }else{
-//         // Gérer le cas où $numero_facture est vide ou non défini
-//     }
+    // Insertion des données dans la table "facture"
+    $query = "INSERT INTO Facture (numero_facture, date_facture, total, commentaire, client_id) VALUES (:numero_facture, :date_facture, :total, :commentaire, :client_id)";
+    $stmt = $pdo->prepare($query);
+    $stmt->execute([
+        'numero_facture' => uniqid(), // génération d'un numéro de facture unique
+        'date_facture' => $date_facture,
+        'total' => $total,
+        'commentaire' => $commentaire,
+        'client_id' => $client_id
+    ]);
 
-//     // Récupération de l'identifiant de la facture créée
-//     $id_facture = $pdo->lastInsertId();
+    // Récupération de l'id de la dernière facture insérée avec la fonction lastInsertId 
+    $id_facture = $pdo->lastInsertId();
 
-//     // Vérification de la soumission du formulaire de création de lignes de facture
-//     if (isset($_POST['lignes_facture'])) {
-//         // Récupération des données du formulaire de création de lignes de facture
-//         $lignes_facture = $_POST['lignes_facture'];
+    // Insertion des données dans la table "ligne_facture"
+    foreach ($description as $prix_total) {
+        $query = "INSERT INTO Ligne_Facture (description, quantite, prix_unitaire, prix_total, id_facture) VALUES (:description, :quantite, :prix_unitaire, :prix_total, :id_facture)";
+        $stmt = $pdo->prepare($query);
+        $stmt->execute([
+            'description' => $description,
+            'quantite' => $quantite,
+            'prix_unitaire' => $prix_unitaire,
+            'prix_total' => $prix_total,
+            'id_facture' => $id_facture
+        ]);
+    }
 
-//         foreach ($lignes_facture as $ligne_facture) {
-//             $description = $ligne_facture['description'];
-//             $quantite = $ligne_facture['quantite'];
-//             $prix_unitaire = $ligne_facture['prix_unitaire'];
-
-//             // Calcul du prix total HT et TTC de la ligne de facture
-//             $prix_total = $quantite * $prix_unitaire;
-
-//             // Insertion de la nouvelle ligne de facture dans la base de données
-//             $stmt = $pdo->prepare('INSERT INTO ligne_facture (id_facture, description, quantite, prix_unitaire, prix_total) VALUES (?, ?, ?, ?, ?)');
-//             $stmt->execute([$id_facture, $description, $quantite, $prix_unitaire, $prix_total]);
-//         }
-//     }
-// }
+    redirect("location: Facture.php");
+}

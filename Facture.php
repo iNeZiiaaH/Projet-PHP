@@ -14,78 +14,42 @@ require_once 'bdd-link/bdd-link.php';
 $query = "SELECT * FROM client";
 $stmt = $pdo->prepare($query);
 $stmt->execute();
-
 ?>
 
-<h1 class="texte-center">Ajouter une facture</h1>
-<form method="post" action="AddFacture.php">
-	<label for="client_id">Client :</label>
-	<select name="client_id" id="client" required>
-		<?php while ($row = $stmt->fetch()) { ?>
+<form method="POST" action="AddFacture.php">
+    <label for="numero_facture">Numéro de facture :</label>
+    <input type="text" id="numero_facture" name="numero_facture" required>
+
+    <label for="date_facture">Date de facture :</label>
+    <input type="date" id="date_facture" name="date_facture" required>
+
+    <label for="total">Total :</label>
+    <input type="number" id="total" name="total" required>
+
+    <label for="commentaire">Commentaire :</label>
+    <textarea id="commentaire" name="commentaire"></textarea>
+
+    <label for="client_id">Client :</label>
+    <select id="client_id" name="client_id">
+	<?php while ($row = $stmt->fetch()) { ?>
 			<option value="<?php echo $row['id']; ?>"><?php echo $row['nom']; ?></option>
 		<?php } ?>
-	</select>
-	<br>
-	<label for="commentaire">commentaire :</label>
-	<textarea name="commentaire"></textarea>
-	<br>
+    </select>
 
-	<h2> Ligne de facture</h2>
+    <label for="description">Description :</label>
+    <input type="text" id="description" name="description" required>
 
-	<div id="lignes_facture">
-		<div class="lignes_factures">
-			<label for="description_1"> Description :</label>
-			<input type="text" name="lignes_facture[0][description]" required>
+    <label for="quantite">Quantité :</label>
+    <input type="number" id="quantite" name="quantite" min="1" required>
 
-			<label for="quantite_1"> Quantite :</label>
-			<input type="number" name="lignes_facture[0][quantite]" min="1" required>
+    <label for="prix_unitaire">Prix unitaire :</label>
+    <input type="number" id="prix_unitaire" name="prix_unitaire" required>
 
-			<label for="prix_unitaire_1"> Prix Unitaire :</label>
-			<input type="number" name="lignes_facture[0][prix_unitaire]" min="0" step="0.01" required>
-		</div>
-	</div>
+    <label for="prix_total">Prix total :</label>
+    <input type="number" id="prix_total" name="prix_total" required>
 
-	<button type="button" onclick="ajoutLigneFacture()"> Ajouter une ligne de facture</button>
-	<input type="submit" name="submit" value="Créer la facture">
+    <button type="submit">Créer la facture</button>
 </form>
+<?php
+var_dump($_POST);
 
-<!-- J'ajoute du JS pour pouvoir rajouter des lignes pour les factures -->
-<script>
-	function ajoutLigneFacture() {
-		var lignesFacture = document.getElementById("lignes_facture");
-		var nouvelleLigneFacture = document.createElement("div");
-		nouvelleLigneFacture.classList.add("ligne_facture");
-
-		var index = lignesFacture.childElementCount;
-		var labels = ["Description", "Quantité", "Prix unitaire"];
-
-		for (var i = 0; i < labels.length; i++) {
-			var label = document.createElement("label");
-			label.textContent = labels[i] + " :";
-
-			var input = document.createElement("input");
-			input.type = i === 0 ? "text" : "number";
-			input.name = "lignes_facture[" + index + "][" + labels[i].toLowerCase().replace("  ", "_") + "]";
-			input.min = i === 1 ? 1 : 0;
-			input.step = "0.01";
-			input.required = true;
-			label.style.margin = "10px 0";
-            input.style.margin = "10px 0";
-
-
-			nouvelleLigneFacture.appendChild(label);
-			nouvelleLigneFacture.appendChild(input);
-		}
-
-		lignesFacture.appendChild(nouvelleLigneFacture);
-	}
-</script>
-
-<!-- Pour calculer le montant total de la facture en fonction des prix unitaires de chaque description, j'effectue du JS
-<script>
-	const prixUnitaires = document.querySelectorAll('input[name="prix_unitaire[]"]');
-	let montant = 0;
-	prixUnitaires.forEach(prixUnitaires => {
-		total += parseFloat(prixUnitaires.value);
-	}) 
-</script> -->

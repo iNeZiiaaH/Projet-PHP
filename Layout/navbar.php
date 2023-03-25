@@ -7,8 +7,8 @@
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
         <a class="nav-link" href="Client.php">Client</a>
-        <a class="nav-link" href="Contact.php">Contact</a>
         <a class="nav-link" href="Facture.php">Facture</a>
+        <a class="nav-link" href="Statistique.php">Statistique</a>
         <a class="nav-link" href="logout.php">Déconnexion</a>
       </div>
     </div>
