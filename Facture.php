@@ -27,8 +27,6 @@ $stmt->execute();
 	<label for="date_facture">Date de facture :</label>
 	<input type="date" id="date_facture" name="date_facture" required>
 
-	<label for="total">Total :</label>
-	<input type="number" id="total" name="total" required>
 
 	<label for="commentaire">Commentaire :</label>
 	<textarea id="commentaire" name="commentaire"></textarea>
@@ -40,8 +38,8 @@ $stmt->execute();
 		<?php } ?>
 	</select>
 
-	<label for="description">Description :</label>
-	<input type="text" id="description" name="description" required>
+	<label for="designation">Designation : </label>
+	<input type="text" id="designation" name="designation" required>
 
 	<label for="quantite">Quantité :</label>
 	<input type="number" id="quantite" name="quantite" min="1" required>
@@ -54,3 +52,5 @@ $stmt->execute();
 
 	<button type="submit">Créer la facture</button>
 </form>
+
+
