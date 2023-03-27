@@ -16,7 +16,7 @@ if (empty($_POST['email']) || empty($_POST['nom']) || empty($_POST['domaine']) |
     exit;
 }
 
-try {
+
     // On récupère la BDD
     require_once 'bdd-link/bdd-link.php';
 
@@ -54,7 +54,4 @@ try {
         // Afficher un message de confirmation
         redirect('Add-Client.php?success=' . ClientSuccess::ADD_CLIENT_SUCCESS);
     }
-} catch (Exception $e) {
-    echo "Une erreur est survenue lors de la création du client : " . $e->getMessage();
-    redirect('Add-Client.php?error=');
-}
+

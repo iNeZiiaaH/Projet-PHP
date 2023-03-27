@@ -51,7 +51,7 @@
 			input.step = "0.01";
 			input.required = true;
 			label.style.margin = "10px 0";
-            input.style.margin = "10px 0";
+			input.style.margin = "10px 0";
 
 
 			nouvelleLigneFacture.appendChild(label);

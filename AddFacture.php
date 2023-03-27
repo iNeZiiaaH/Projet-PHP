@@ -6,7 +6,7 @@ require_once 'bdd-link/bdd-link.php';
 
 // Vérification si le formulaire a été soumis.
 if (isset($_POST) && !empty($_POST)) {
-    
+
     // Validation du formulaire 
     $client_id = $_POST["client_id"];
     $date_facture = $_POST["date_facture"];
