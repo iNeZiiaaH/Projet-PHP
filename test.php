@@ -61,12 +61,3 @@
 		lignesFacture.appendChild(nouvelleLigneFacture);
 	}
 </script>
-
-<!-- Pour calculer le montant total de la facture en fonction des prix unitaires de chaque description, j'effectue du JS
-<script>
-	const prixUnitaires = document.querySelectorAll('input[name="prix_unitaire[]"]');
-	let montant = 0;
-	prixUnitaires.forEach(prixUnitaires => {
-		total += parseFloat(prixUnitaires.value);
-	}) 
-</script> -->

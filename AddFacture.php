@@ -43,9 +43,9 @@ if (!empty($_POST)) {
         'id_facture' => $id_facture
     ]);
 
-    if ($id_facture == 0) {   
-    redirect('Facture.php?success=' . FactureSuccess::ADD_FACTURE_SUCCESS);
-} else {
-    redirect('Facture.php?error='. FactureError::FACTURE_ERROR);
-}
+    if ($id_facture == 0) {
+        redirect('Facture.php?error=' . FactureError::FACTURE_ERROR);
+    } else {
+        redirect('Facture.php?success=' . FactureSuccess::ADD_FACTURE_SUCCESS);
+    }
 }

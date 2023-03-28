@@ -10,9 +10,10 @@ require_once 'Layout/navbar.php';
 
 // condition qui dis que si utilisateur n'est pas connecté alors il est renvoyé vers la page login.php
 session_start();
-if (!$_SESSION['connected']) {
-	redirect('login.php?error=' . LoginError::CONNECTION_FAILED);
+if ($_SESSION == false) {
+    redirect('login.php?error=' . LoginError::CONNECTION_FAILED);
 }
+
 // Récupération Base de donnée 
 require_once 'bdd-link/bdd-link.php';
 
@@ -55,15 +56,16 @@ $stmt->execute();
 
 	<button type="submit">Créer la facture</button>
 </form>
+
 <?php
-// Afficher le message que le client à bien été supprimé
+// Afficher le message que la facture a été crée
 if (array_key_exists('success', $_GET)) { ?>
 	<div class="alert alert-success text-center">
 		<?php echo FactureSuccess::getSuccessMessage(intval($_GET['success'])); ?>
 	</div>
 <?php }
 
-// Afficher le message que le client à bien été supprimé
+// Afficher le message que le facture à bien été supprimé
 if (array_key_exists('error', $_GET)) { ?>
 	<div class="alert alert-danger text-center">
 		<?php echo FactureError::getErrorMessage(intval($_GET['error'])); ?>

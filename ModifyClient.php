@@ -5,10 +5,9 @@ require_once 'Classes/ModifyClientSuccess.php';
 
 // condition qui dis que si utilisateur n'est pas connecté alors il est renvoyé vers la page login.php
 session_start();
-if (!$_SESSION['connected']) {
+if ($_SESSION == false) {
     redirect('login.php?error=' . LoginError::CONNECTION_FAILED);
 }
-
 // on récupère la base de donnée
 require_once 'bdd-link/bdd-link.php';
 
@@ -58,7 +57,7 @@ require_once 'Layout/navbar.php';
     </div>
     <div class="col-md-4">
         <label for="inputCodePostal" class="form-label">Code postal</label>
-        <input type="number" name="code_postal"  class="form-control" id="inputCodePostal" value=" <?php echo $code_postal ?>">
+        <input type="number" name="code_postal" class="form-control" id="inputCodePostal" value=" <?php echo $code_postal ?>">
     </div>
     <div class="col-md-4">
         <label for="inputPays" class="form-label">Pays</label>
