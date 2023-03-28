@@ -1,5 +1,7 @@
 <?php
 require_once 'functions/utils.php';
+require_once 'Classes/AddFactureSuccess.php';
+require_once 'Classes/AddFactureError.php';
 
 // récupération de la BDD
 require_once 'bdd-link/bdd-link.php';
@@ -41,7 +43,9 @@ if (!empty($_POST)) {
         'id_facture' => $id_facture
     ]);
 
-    echo "Facture a été ajoutée avec succès!";
-
-    // redirect('location: Facture.php');
+    if ($id_facture == 0) {   
+    redirect('Facture.php?success=' . FactureSuccess::ADD_FACTURE_SUCCESS);
+} else {
+    redirect('Facture.php?error='. FactureError::FACTURE_ERROR);
+}
 }
