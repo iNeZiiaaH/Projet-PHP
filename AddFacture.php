@@ -5,20 +5,20 @@ require_once 'functions/utils.php';
 require_once 'bdd-link/bdd-link.php';
 
 // Vérification si le formulaire a été soumis.
-if (isset($_POST) && !empty($_POST)) {
+if (!empty($_POST)) {
 
     // Validation du formulaire 
     $client_id = $_POST['client_id'];
     $date_facture = $_POST['date_facture'];
     $commentaire = $_POST['commentaire'];
-    $descriptions = $_POST['designation'];
+    $designation = $_POST['designation'];
     $quantite = $_POST['quantite'];
     $prix_unitaire = $_POST['prix_unitaire'];
     $prix_total = $_POST['prix_total'];
 
 
     // Insertion des données dans la table "facture"
-    $query = "INSERT INTO Facture (numero_facture, date_facture, commentaire, client_id) VALUES (:numero_facture, :date_facture, :total, :commentaire, :client_id)";
+    $query = "INSERT INTO Facture (numero_facture, date_facture, commentaire, client_id) VALUES (:numero_facture, :date_facture, :commentaire, :client_id)";
     $stmt = $pdo->prepare($query);
     $stmt->execute([
         'numero_facture' => uniqid(), // génération d'un numéro de facture unique
@@ -31,17 +31,17 @@ if (isset($_POST) && !empty($_POST)) {
     $id_facture = $pdo->lastInsertId();
 
     // Insertion des données dans la table "ligne_facture"
-
-
     $query = "INSERT INTO Ligne_Facture (designation, quantite, prix_unitaire, prix_total, id_facture) VALUES (:designation, :quantite, :prix_unitaire, :prix_total, :id_facture)";
     $stmt = $pdo->prepare($query);
     $stmt->execute([
-        'designation' => $descriptions,
+        'designation' => $designation,
         'quantite' => $quantite,
         'prix_unitaire' => $prix_unitaire,
         'prix_total' => $prix_total,
         'id_facture' => $id_facture
     ]);
 
-    redirect('location: Facture.php');
+    echo "Facture a été ajoutée avec succès!";
+
+    // redirect('location: Facture.php');
 }
