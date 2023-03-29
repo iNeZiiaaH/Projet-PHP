@@ -1,21 +1,10 @@
 <?php
-// require_once './bdd-link/bdd-link.php';
+// je récupère ma classe ViewClient
+require_once 'Classes/ViewClient.php';
 
-// $query = "SELECT * FROM client";
-// $stmt = $pdo->prepare($query);
-// $stmt->execute();
-// $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+// on crée une instance de la classe ViewClient
+$client = new Client($pdo);
 
-
-// // Afficher les données dans une liste déroulante
-// if (count($result) > 0) {
-//     echo "<select id='clients'>";
-//     foreach($result as $row) {
-//         echo "<option value='" . $row["id"] . "'>" . $row["nom"] . "</option>";
-//     }
-//     echo "</select>";
-// } else {
-//     echo "0 résultats";
-// }
-
-// require_once 'client-details.php'; 
+if (isset($_GET['id'])) {
+    echo $client->afficherClients($_GET['id']);
+}
