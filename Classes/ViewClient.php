@@ -1,12 +1,16 @@
 <?php
-
-
-
 class Client
 {
+    private $id;
+    private $nom;
+    private $email;
+    private $domaine;
+    private $ville;
+    private $code_postal;
+    private $pays;
     private $pdo;
 
-    public function __construct($pdo)
+    public function __construct(PDO $pdo)
     {
         $this->pdo = $pdo;
     }
@@ -46,7 +50,6 @@ class Client
                     <a href="DeleteClient.php?id=<?php echo $client['id']; ?>" class="btn btn-dark">Supprimer Client</a>
                 </div>
             </div>
-
 <?php }
     }
 }

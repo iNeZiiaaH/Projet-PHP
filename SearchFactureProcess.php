@@ -15,6 +15,7 @@ if (isset($_GET['id'])) {
                 <div class="card-body text-center">
                     <h5 class="card-title"> Facture n°<?php echo $stmt1['numero_facture']; ?></h5>
                     <p class="card-text"> Date :<?php echo $stmt1['date_facture'] ?></p>
+                    <p class="card-text"> Total :<?php echo $stmt1['total'] ?></p>
                     <p class="card-text"> Commentaire :<?php echo $stmt1['commentaire'] ?></p>
 
                     <?php
@@ -25,7 +26,7 @@ if (isset($_GET['id'])) {
                     ]);
 
                     while ($row = $stmt2->fetch()) { ?>
-                        <p class="card-text">Produit : <?php echo $row['designation'] ?></p>
+                        <p class="card-text">Produit : <?php echo $row['description'] ?></p>
                         <p class="card-text">Quantité : <?php echo $row['quantite'] ?></p>
                         <p class="card-text">Prix unitaire : <?php echo $row['prix_unitaire'] ?>€</p>
                         <p class="card-text">Prix total : <?php echo $row['prix_total'] ?>€</p>
