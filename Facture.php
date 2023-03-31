@@ -103,6 +103,7 @@ if (array_key_exists('error', $_GET)) { ?>
 		var index = lignesFacture.childElementCount;
 		var labels = ["Description", "Quantité", "Prix unitaire"];
 		var id = ["description", "quantite", "prix_unitaire"];
+		// var obj = [{id: "description", label : "Description"},{id: "quantite", label : "Quantité"}]
 
 		for (var i = 0; i < labels.length; i++) {
 			var label = document.createElement("label");
