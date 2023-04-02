@@ -10,7 +10,6 @@ if (isset($_GET['id'])) {
         'client_id' => $clientid
     ]);
 ?>
-
     <div class="container mt-5">
         <h2 class="text-center">Liste des factures</h2>
         <hr>
@@ -62,4 +61,4 @@ if (isset($_GET['id'])) {
                 </div>
             <?php } ?>
         </div>
-        <?php }
+    <?php }
