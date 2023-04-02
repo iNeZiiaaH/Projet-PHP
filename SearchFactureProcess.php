@@ -1,6 +1,6 @@
 <?php
+// je verifie si id du client est défénie dans URL. Si il est définie je le stock dans une variable, puis j'effectue ma requête pour récupérer toutes les factures de chaque client.
 
-// Je verifie si id du client est définie dans URL. Si il est définie je le stock dans une variable, puis j'effectue ma requête pour récupérer toute les factures de ce client.
 if (isset($_GET['id'])) {
     $clientid = $_GET['id'];
 
@@ -10,33 +10,56 @@ if (isset($_GET['id'])) {
         'client_id' => $clientid
     ]);
 ?>
-    <!-- j'effectue une boucle pour parcourir chaque facture est récupérer les information -->
-    <div class="row row-cols-4 justify-content-center gap-5">
-        <?php while ($stmt1 = $stmt->fetch()) { ?>
-            <div class="d-flex card  mt-5" style="width: 18rem;">
-                <div class="card-body text-center">
-                    <h5 class="card-title"> Facture n° <?php echo $stmt1['numero_facture']; ?></h5>
-                    <p class="card-text"> Date : <?php echo $stmt1['date_facture'] ?></p>
-                    <p class="card-text"> Total : <?php echo $stmt1['total'] ?>€</p>
-                    <p class="card-text"> Commentaire : <?php echo $stmt1['commentaire'] ?></p>
 
-                    <!-- j'effectue une deuxième requête pour récupérer cette fois-ci les lignes de la facture -->
-                    <?php
-                    $query2 = "SELECT * FROM Ligne_Facture WHERE id_facture = :id";
-                    $stmt2 = $pdo->prepare($query2);
-                    $stmt2->execute([
-                        'id' => $stmt1["id"]
-                    ]);
+    <div class="container mt-5">
+        <h2 class="text-center">Liste des factures</h2>
+        <hr>
 
-                    // j'effectue une autre boucle qui parcours la table ligne facture est récupérer les informations
-                    while ($row = $stmt2->fetch()) { ?>
-                        <p class="card-text">Produit : <?php echo $row['description'] ?></p>
-                        <p class="card-text">Quantité : <?php echo $row['quantite'] ?></p>
-                        <p class="card-text">Prix unitaire : <?php echo $row['prix_unitaire'] ?>€</p>
-                    <?php } ?>
+        <!-- j'effectue une première boucle pour parcourir chaque facture et récupérer les informations. -->
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            <?php while ($stmt1 = $stmt->fetch()) { ?>
+                <div class="col">
+                    <div class="card border-dark">
+                        <div class="card-header">
+                            <h5 class="card-title m-0">Facture n° <?php echo $stmt1['numero_facture']; ?></h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text"> Date : <?php echo $stmt1['date_facture'] ?></p>
+                            <p class="card-text"> Total : <?php echo $stmt1['total'] ?>€</p>
+                            <p class="card-text"> Commentaire : <?php echo $stmt1['commentaire'] ?></p>
+
+                            <!-- j'effectue ma deuxième requête pour récupérer les informations des lignes de la factures en effectuant une boucle. -->
+                            <?php
+                            $query2 = "SELECT * FROM Ligne_Facture WHERE id_facture = :id";
+                            $stmt2 = $pdo->prepare($query2);
+                            $stmt2->execute([
+                                'id' => $stmt1["id"]
+                            ]);
+                            ?>
+
+                            <ul class="list-group list-group-flush">
+                                <?php while ($row = $stmt2->fetch()) { ?>
+                                    <li class="list-group-item">
+                                        <div class="d-flex justify-content-between">
+                                            <div class="me-auto">
+                                                <p class="card-text">Produit : <?php echo $row['description'] ?></p>
+                                                <p class="card-text">Quantité : <?php echo $row['quantite'] ?></p>
+                                            </div>
+                                            <div class="text-end">
+                                                <p class="card-text">Prix unitaire : <?php echo $row['prix_unitaire'] ?>€</p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                <?php } ?>
+                            </ul>
+
+                            <!-- Bonus essayer éditer la facture son forme de PDF avec FPDF -->
+                            <div class="mt-3 text-end">
+                                <a href="" class="btn btn-sm btn-dark">Télécharger</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        <?php } ?>
-    </div>
-
-<?php } ?>
+            <?php } ?>
+        </div>
+        <?php }

@@ -17,7 +17,7 @@ if (isset($_GET['id'])) {
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h2 class="text-center mb-4"> Détails du Client</h2>
+                <h2 class="text-center m-4"> Détails du Client</h2>
                 <table class="table table-bordered">
                     <thead>
                         <tr>
