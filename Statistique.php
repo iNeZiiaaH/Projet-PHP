@@ -39,46 +39,5 @@ require_once 'Layout/navbar.php'; ?>
 
 <?php
 
-if (isset($_GET['id'])) {
-
-    // V2
-
-    $client_id = $_GET['id'];
-
-    $query = 'SELECT client.nom, SUM(total) AS total_sum FROM Facture
-                JOIN client ON Facture.client_id = client.id
-                WHERE Facture.client_id = :client_id
-                GROUP BY client.id';
-    $stmt = $pdo->prepare($query);
-    $stmt->execute([
-        'client_id' => $client_id
-    ]);
-
-    while ($row = $stmt->fetch()) {
-        $client_nom =$row['nom'];
-        $total_sum = $row['total_sum'];
-
-        echo "Client : $client_nom, Chiffre d'affaire sur l'année : $total_sum €";
-    }
-
-    //V1 pour afficher les totals de chaque client
-
-    // $client_id = $_GET['id'];
-
-    // $query = "SELECT client_id, SUM(total) as total_sum FROM Facture WHERE client_id = :client_id";
-    // $stmt = $pdo->prepare($query);
-    // $stmt->execute([
-    //     'client_id' => $client_id
-    // ]
-    // );
-
-    // $result = $stmt->fetch();
-    // $total_sum = $result['total_sum'];
-
-    //     // afficher les résultats
-    //     echo "Chiffre d'affaire du client : " . $clientNom. " : ". $total_sum. "€";
-    }
-
-
-
-?>
+require_once 'StatistiqueProcess.php';
+require_once 'Layout/footer.php';
