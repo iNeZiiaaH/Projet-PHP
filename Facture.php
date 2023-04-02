@@ -23,7 +23,7 @@ $stmt = $pdo->prepare($query);
 $stmt->execute();
 ?>
 
-<h2 class="text-center">Ajouer une facture</h2>
+<h2 class="text-center m-5">Ajouer une facture</h2>
 <form method="post" action="AddFacture.php">
 	<div class="d-flex justify-content-center gap-5">
 		<label for="client_id">Client :</label>
@@ -65,6 +65,10 @@ $stmt->execute();
 
 </form>
 
+<div class="d-flex justify-content-center">
+	<a href="SearchFacture.php" class="btn btn-dark text-center mt-5">Rechercher une facture</a>
+</div>
+
 <?php
 // Afficher le message que la facture a été crée
 if (array_key_exists('success', $_GET)) { ?>
@@ -80,8 +84,6 @@ if (array_key_exists('error', $_GET)) { ?>
 	</div>
 <?php }
 ?>
-
-<a href="SearchFacture.php" class="btn btn-dark mt-5">Rechercher une facture</a>
 
 <script defer>
 	function updatePrixTotal() {
