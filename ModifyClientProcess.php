@@ -1,8 +1,7 @@
 <?php
 require_once 'functions/utils.php';
-require_once 'Classes/ModifyClientSuccess.php';
+require_once 'Classes/MessageSuccess/ModifyClientSuccess.php';
 require_once 'Classes/ViewClient.php';
-
 
 require_once 'bdd-link/bdd-link.php';
 

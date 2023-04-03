@@ -1,6 +1,6 @@
 <?php
 // Récupération de la classe des erreurs 
-require_once 'Classes/LoginError.php';
+require_once 'Classes/MessageError/LoginError.php';
 ?>
 
 

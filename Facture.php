@@ -1,8 +1,8 @@
 <?php
 require_once 'functions/utils.php';
-require_once 'Classes/LoginError.php';
-require_once 'Classes/AddFactureSuccess.php';
-require_once 'Classes/AddFactureError.php';
+require_once 'Classes/MessageError/LoginError.php';
+require_once 'Classes/MessageSuccess/AddFactureSuccess.php';
+require_once 'Classes/MessageError/AddFactureError.php';
 
 
 require_once 'Layout/header.php';
@@ -22,6 +22,14 @@ $query = "SELECT * FROM client";
 $stmt = $pdo->prepare($query);
 $stmt->execute();
 ?>
+
+<?php
+// Afficher le message que la facture a été crée
+if (array_key_exists('success', $_GET)) { ?>
+	<div class="alert alert-success text-center">
+		<?php echo FactureSuccess::getSuccessMessage(intval($_GET['success'])); ?>
+	</div>
+<?php } ?>
 
 <h2 class="text-center m-5">Ajouer une facture</h2>
 <form method="post" action="AddFacture.php">
@@ -58,6 +66,7 @@ $stmt->execute();
 	</div>
 	<label for="prix_total">Prix total :</label>
 	<input type="number" id="prix_total" name="prix_total" required readonly>
+
 	<div class="d-flex justify-content-center mt-5">
 		<button type="button" onclick="ajoutLigneFacture()"> Ajouter une ligne de facture</button>
 		<input type="submit" name="submit" value="Créer la facture">
@@ -70,14 +79,7 @@ $stmt->execute();
 </div>
 
 <?php
-// Afficher le message que la facture a été crée
-if (array_key_exists('success', $_GET)) { ?>
-	<div class="alert alert-success text-center">
-		<?php echo FactureSuccess::getSuccessMessage(intval($_GET['success'])); ?>
-	</div>
-<?php }
-
-// Afficher le message que le facture à bien été supprimé
+//Afficher le message que le facture à bien été supprimé
 if (array_key_exists('error', $_GET)) { ?>
 	<div class="alert alert-danger text-center">
 		<?php echo FactureError::getErrorMessage(intval($_GET['error'])); ?>

@@ -1,7 +1,7 @@
 <?php
 require_once 'functions/utils.php';
-require_once 'Classes/AddFactureSuccess.php';
-require_once 'Classes/AddFactureError.php';
+require_once 'Classes/MessageSuccess/AddFactureSuccess.php';
+require_once 'Classes/MessageError/AddFactureError.php';
 
 // récupération de la BDD
 require_once 'bdd-link/bdd-link.php';

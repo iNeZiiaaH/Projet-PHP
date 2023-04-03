@@ -3,8 +3,8 @@
 require_once 'functions/utils.php';
 
 // Récupération des classes pour les erreurs et les succès
-require_once 'Classes/LoginError.php';
-require_once 'Classes/LoginSuccess.php';
+require_once 'Classes/MessageError/LoginError.php';
+require_once 'Classes/MessageSuccess/LoginSuccess.php';
 
 
 // condition qui dis que si utilisateur n'est pas connecté alors il est renvoyé vers la page login.php

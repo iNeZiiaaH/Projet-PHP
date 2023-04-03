@@ -1,8 +1,8 @@
 <?php
 require_once 'functions/utils.php';
-require_once 'Classes/LoginError.php';
-require_once 'Classes/AddClientError.php';
-require_once 'Classes/AddClientSuccess.php';
+require_once 'Classes/MessageError/LoginError.php';
+require_once 'Classes/MessageError/AddClientError.php';
+require_once 'Classes/MessageSuccess/AddClientSuccess.php';
 
 // condition qui dis que si utilisateur n'est pas connecté alors il est renvoyé vers la page login.php
 session_start();
