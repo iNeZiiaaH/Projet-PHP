@@ -102,10 +102,10 @@ if (array_key_exists('error', $_GET)) { ?>
 		var nouvelleLigneFacture = document.createElement("div");
 		nouvelleLigneFacture.classList.add("lignes_facture");
 
-		var index = lignesFacture.childElementCount;
+		var index = lignesFacture.childElementCount; // on obtient le nombre de ligne actuelle 
 		var labels = ["Description", "Quantité", "Prix unitaire"];
 		var id = ["description", "quantite", "prix_unitaire"];
-		// var obj = [{id: "description", label : "Description"},{id: "quantite", label : "Quantité"}]
+		// var obj = [{id: "description", label : "Description"},{id: "quantite", label : "Quantité"},{id: "prix_unitaire", label : "Prix unitaire}]
 
 		for (var i = 0; i < labels.length; i++) {
 			var label = document.createElement("label");
@@ -113,6 +113,7 @@ if (array_key_exists('error', $_GET)) { ?>
 
 			var input = document.createElement("input");
 			input.type = i === 0 ? "text" : "number";
+			// je configure l'attribut name, toLowerCase() = id est convertie en minuscule , il évite les problème de casse
 			input.name = "lignes_facture[" + index + "][" + id[i].toLowerCase().replace("  ", "_") + "]";
 			input.min = i === 1 ? 1 : 0;
 			input.required = true;

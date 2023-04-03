@@ -26,12 +26,12 @@ if (isset($_GET['id'])) {
                         </tr>
                     </thead>
                     <tbody>
-                    <?php while ($row = $stmt->fetch()) { ?>
-                        <tr>
-                            <td><?php echo $row['nom'];?></td>
-                            <td><?php echo $row['total_sum'];?> €</td>
-                        </tr>
-                        <?php }?>
+                        <?php while ($row = $stmt->fetch()) { ?>
+                            <tr>
+                                <td><?php echo $row['nom']; ?></td>
+                                <td><?php echo $row['total_sum']; ?> €</td>
+                            </tr>
+                        <?php } ?>
                     </tbody>
                 </table>
             </div>

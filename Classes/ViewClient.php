@@ -16,7 +16,7 @@ class Client
         $this->pdo = $pdo;
     }
 
-    public function afficherClients($clientId)
+    public function afficherClient($clientId)
     {
 
         // condition pour que la reqête s'execute que si le client est renseigné

@@ -16,7 +16,7 @@ if (isset($_GET['id'])) {
     $stmt->execute([
         'client_id' => $clientid
     ]);
-    
+
 ?>
     <div class="container mt-3 text-center">
         <h2>Liste des factures</h2>

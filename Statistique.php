@@ -23,7 +23,7 @@ $stmt->execute();
 require_once 'Layout/header.php';
 require_once 'Layout/navbar.php'; ?>
 
-<h1 class="text-center">Choisir le client dans la liste</h1>
+<h1 class="text-center">Choisir le client dans la liste pour afficher le chiffre d'affaire</h1>
 
 <div class="d-flex justify-content-center mt-5 ">
     <form action="" method="get" class="d-flex gap-3 w-50">

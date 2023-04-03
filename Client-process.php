@@ -6,5 +6,5 @@ require_once 'Classes/ViewClient.php';
 $client = new Client($pdo);
 
 if (isset($_GET['id'])) {
-    echo $client->afficherClients($_GET['id']);
+    echo $client->afficherClient($_GET['id']);
 }
