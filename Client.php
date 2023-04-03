@@ -1,13 +1,11 @@
 <?php
 require_once 'functions/utils.php';
+require_once 'functions/SessionError.php';
 require_once 'Classes/MessageError/LoginError.php';
 require_once 'Classes/MessageSuccess/DeleteClientSuccess.php';
 
-// condition qui dis que si utilisateur n'est pas connecté alors il est renvoyé vers la page login.php
-session_start();
-if ($_SESSION == false) {
-  redirect('login.php?error=' . LoginError::CONNECTION_FAILED);
-}
+// fonction qui redirige vers la page de connexion si l'utilisateur essaye de passer par URL sans être connecter
+SessionError();
 
 // Récupération Base de donnée 
 require_once 'bdd-link/bdd-link.php';
@@ -36,7 +34,7 @@ require_once 'Layout/navbar.php'; ?>
   <button type="button" class="btn btn-dark" onclick="location='Add-Client.php ';">Ajouter Client</button>
 </div>
 
-<?php require_once 'Client-process.php';
+<?php require_once 'ViewClient.php';
 
 // Afficher le message que le client à bien été supprimé
 if (array_key_exists('success', $_GET)) { ?>

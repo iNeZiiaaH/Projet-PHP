@@ -1,8 +1,13 @@
 <?php
 session_start();
 require_once 'functions/utils.php';
+require_once 'functions/SessionError.php';
 require_once 'Classes/MessageError/LoginError.php';
 require_once 'Classes/MessageSuccess/LoginSuccess.php';
+
+// fonction qui redirige vers la page de connexion si l'utilisateur essaye de passer par URL sans être connecter
+SessionError();
+
 require_once __DIR__ . '/bdd-link/bdd-link.php';
 
 if (empty($_POST) || !isset($_POST['login']) || !isset($_POST['pass'])) {

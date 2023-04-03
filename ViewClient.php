@@ -1,6 +1,6 @@
 <?php
 // je récupère ma classe ViewClient
-require_once 'Classes/ViewClient.php';
+require_once 'Classes/ClientCrud.php';
 
 // on crée une instance de la classe ViewClient
 $client = new Client($pdo);

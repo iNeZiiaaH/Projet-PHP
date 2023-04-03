@@ -1,7 +1,11 @@
 <?php
 require_once 'functions/utils.php';
+require_once 'functions/SessionError.php';
 require_once 'Classes/MessageSuccess/AddFactureSuccess.php';
 require_once 'Classes/MessageError/AddFactureError.php';
+
+// fonction qui redirige vers la page de connexion si l'utilisateur essaye de passer par URL sans être connecter
+SessionError();
 
 // récupération de la BDD
 require_once 'bdd-link/bdd-link.php';

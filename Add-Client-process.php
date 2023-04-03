@@ -1,14 +1,12 @@
 <?php
 require_once 'functions/utils.php';
+require_once 'functions/SessionError.php';
 require_once 'Classes/MessageError/LoginError.php';
 require_once 'Classes/MessageError/AddClientError.php';
 require_once 'Classes/MessageSuccess/AddClientSuccess.php';
 
-// condition qui dis que si utilisateur n'est pas connecté alors il est renvoyé vers la page login.php
-session_start();
-if ($_SESSION == false) {
-    redirect('login.php?error=' . LoginError::CONNECTION_FAILED);
-}
+// fonction qui redirige vers la page de connexion si l'utilisateur essaye de passer par URL sans être connecter
+SessionError();
 
 // Condition pour que les champs sois tous remplis sinon il ne peut pas envoyer la requête
 if (empty($_POST['email']) || empty($_POST['nom']) || empty($_POST['domaine']) || empty($_POST['adresse']) || empty($_POST['ville']) || empty($_POST['code_postal']) || empty($_POST['pays'])) {

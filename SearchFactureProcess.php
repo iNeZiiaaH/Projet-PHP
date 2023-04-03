@@ -1,4 +1,10 @@
 <?php
+require_once 'functions/SessionError.php';
+require_once 'functions/utils.php';
+require_once 'Classes/MessageError/LoginError.php';
+
+// fonction qui redirige vers la page de connexion si l'utilisateur essaye de passer par URL sans être connecter
+SessionError();
 // je verifie si id du client est défénie dans URL. Si il est définie je le stock dans une variable, puis j'effectue ma requête pour récupérer toutes les factures de chaque client.
 
 if (isset($_GET['id'])) {

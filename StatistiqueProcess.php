@@ -1,4 +1,10 @@
 <?php
+require_once 'Classes/MessageError/LoginError.php';
+require_once 'functions/utils.php';
+require_once 'functions/SessionError.php';
+
+// fonction qui redirige vers la page de connexion si l'utilisateur essaye de passer par URL sans être connecter
+SessionError();
 
 if (isset($_GET['id'])) {
 

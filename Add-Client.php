@@ -1,14 +1,12 @@
 <?php
 require_once 'functions/utils.php';
+require_once 'functions/SessionError.php';
 require_once 'Classes/MessageError/LoginError.php';
 require_once 'Classes/MessageError/AddClientError.php';
 require_once 'Classes/MessageSuccess/AddClientSuccess.php';
 
-// condition qui dis que si utilisateur n'est pas connecté alors il est renvoyé vers la page login.php
-session_start();
-if ($_SESSION == false) {
-    redirect('login.php?error=' . LoginError::CONNECTION_FAILED);
-}
+// fonction qui redirige vers la page de connexion si l'utilisateur essaye de passer par URL sans être connecter
+SessionError();
 
 require_once 'Layout/header.php';
 require_once 'Layout/navbar.php';
