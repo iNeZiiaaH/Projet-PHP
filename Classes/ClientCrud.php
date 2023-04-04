@@ -15,6 +15,38 @@ class ClientCrud
     {
         $this->pdo = $pdo;
     }
+    public function getId(): int
+    {
+        return $this->id;
+    }
+    public function getNom(): string
+    {
+        return $this->nom;
+    }
+    public function getEmail(): string
+    {
+        return $this->email;
+    }
+    public function getDomaine(): string
+    {
+        return $this->domaine;
+    }
+    public function getAdresse(): string
+    {
+        return $this->adresse;
+    }
+    public function getVille(): string
+    {
+        return $this->ville;
+    }
+    public function getCodePostal(): int
+    {
+        return $this->code_postal;
+    }
+    public function getPays(): string
+    {
+        return $this->pays;
+    }
 
     public function afficherClient($clientId)
     {
@@ -64,38 +96,6 @@ class ClientCrud
         </div>
 <?php }
 
-    public function getId(): int
-    {
-        return $this->id;
-    }
-    public function getNom(): string
-    {
-        return $this->nom;
-    }
-    public function getEmail(): string
-    {
-        return $this->email;
-    }
-    public function getDomaine(): string
-    {
-        return $this->domaine;
-    }
-    public function getAdresse(): string
-    {
-        return $this->adresse;
-    }
-    public function getVille(): string
-    {
-        return $this->ville;
-    }
-    public function getCodePostal(): int
-    {
-        return $this->code_postal;
-    }
-    public function getPays(): string
-    {
-        return $this->pays;
-    }
 
     public function ModifyClient($id_client, $newEmail, $newNom, $newDomaine, $newAdresse, $newVille, $newCode_Postal, $newPays)
     {
@@ -135,7 +135,7 @@ class ClientCrud
         if ($result) {
             redirect('ModifyClient.php?success=' . ModifyClientSuccess::MODIFY_CLIENT_SUCCESS . "&id=" . $id_client);
         } else {
-            echo "Erreur de la modification du client";
+            redirect('ModifyClient.php?error=' . ModifyClientError::MODIFY_CLIENT_ERROR);
         }
     }
     public function AjouterClient()
