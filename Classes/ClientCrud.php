@@ -1,5 +1,5 @@
 <?php
-class Client
+class ClientCrud
 {
     private int $id;
     private string $nom;
@@ -100,7 +100,7 @@ class Client
     public function ModifyClient($id_client, $newEmail, $newNom, $newDomaine, $newAdresse, $newVille, $newCode_Postal, $newPays)
     {
 
-        if (isset($_POST['modifier_client'])) {
+        
 
             $id_client = $_GET['id'];
             $newEmail = $_POST['email'];
@@ -139,4 +139,4 @@ class Client
             }
         }
     }
-}
+

@@ -3,7 +3,7 @@ require_once 'functions/utils.php';
 require_once 'functions/SessionError.php';
 require_once 'Classes/MessageError/LoginError.php';
 require_once 'Classes/MessageSuccess/ModifyClientSuccess.php';
-require_once 'Classes/ViewClient.php';
+require_once 'Classes/ClientCrud.php';
 
 // fonction qui redirige vers la page de connexion si l'utilisateur essaye de passer par URL sans être connecter
 SessionError();

@@ -1,11 +1,8 @@
 <?php
 require_once 'functions/utils.php';
-require_once 'functions/SessionError.php';
 require_once 'Classes/MessageSuccess/ModifyClientSuccess.php';
-require_once 'Classes/ViewClient.php';
+require_once 'Classes/ClientCrud.php';
 
-// fonction qui redirige vers la page de connexion si l'utilisateur essaye de passer par URL sans être connecter
-SessionError();
 
 require_once 'bdd-link/bdd-link.php';
 
@@ -18,12 +15,7 @@ if (isset($_POST['modifier_client'])) {
         exit;
     }
 
-    $client = new Client($pdo);
+    $client = new ClientCrud($pdo);
     $result = $client->ModifyClient($_GET['id'], $_POST['email'], $_POST['nom'], $_POST['domaine'], $_POST['adresse'], $_POST['ville'], $_POST['code_postal'], $_POST['pays']);
 
-    if ($result) {
-        redirect('ModifyClient.php?success=' . ModifyClientSuccess::MODIFY_CLIENT_SUCCESS . "&id=" . $id_client);
-    } else {
-        echo "Erreur de la modification du client";
-    }
 }
