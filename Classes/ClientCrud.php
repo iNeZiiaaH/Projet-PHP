@@ -51,11 +51,6 @@ class ClientCrud
     public function afficherClient($clientId)
     {
 
-        // condition pour que la reqête s'execute que si le client est renseigné
-        if (isset($_GET['id'])) {
-
-            $clientId = $_GET['id'];
-
             $query = "SELECT * FROM client WHERE id=:id";
             $stmt = $this->pdo->prepare($query);
             $stmt->execute([
@@ -67,8 +62,8 @@ class ClientCrud
             if ($client === false) {
                 http_response_code(404);
                 exit('Client non trouvé');
-            }
-        }
+            } else {
+    
         // on définie les valeurs de chaque propriétés
         $this->id = $client['id'];
         $this->nom = $client['nom'];
@@ -78,24 +73,8 @@ class ClientCrud
         $this->ville = $client['ville'];
         $this->code_postal = $client['code_postal'];
         $this->pays = $client['pays'];
-?>
-
-        <div class="card d-flex mx-auto mt-5" style="width: 18rem;">
-            <div class="card-body text-center">
-                <h5 class="card-title"><?php $this->getNom(); ?></h5>
-                <p class="card-text"><?php echo $this->getEmail() ?></p>
-                <p class="card-text"><?php echo $this->getDomaine() ?></p>
-                <p class="card-text"><?php echo $this->getAdresse() ?></p>
-                <p class="card-text"><?php echo $this->getVille() ?></p>
-                <p class="card-text"><?php echo $this->getCodePostal() ?></p>
-                <p class="card-text"><?php echo $this->getPays() ?></p>
-                <a href="ModifyClient.php?id=<?php echo $this->getId(); ?>" class="btn btn-dark">Modifier Client</a>
-                <br></br>
-                <a href="DeleteClient.php?id=<?php echo $this->getId(); ?>" class="btn btn-dark">Supprimer Client</a>
-            </div>
-        </div>
-<?php }
-
+        }
+    }
 
     public function ModifyClient($id_client, $newEmail, $newNom, $newDomaine, $newAdresse, $newVille, $newCode_Postal, $newPays)
     {

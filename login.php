@@ -1,14 +1,20 @@
 <?php
 // Récupération de la classe des erreurs 
 require_once 'Classes/MessageError/LoginError.php';
+require_once 'Classes/MessageSuccess/LogoutSuccess.php';
 ?>
-
 
 <h1 class="text-center">Connectez Vous !</h1>
 
 <?php if (array_key_exists('error', $_GET)) { ?>
   <div class="alert alert-danger text-center">
     <?php echo LoginError::getErrorMessage(intval($_GET['error'])); ?>
+  </div>
+<?php }
+
+if (array_key_exists('success', $_GET)) { ?>
+  <div class="alert alert-success text-center">
+    <?php echo LogoutSuccess::getSuccessMessage(intval($_GET['success'])); ?>
   </div>
 <?php }
 

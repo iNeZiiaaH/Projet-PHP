@@ -14,11 +14,8 @@ if (empty($_POST['email']) || empty($_POST['nom']) || empty($_POST['domaine']) |
     echo 'Veuillez remplire tous les champs';
     exit;
 }
+// On récupère la BDD
+require_once 'bdd-link/bdd-link.php';
 
-
-    // On récupère la BDD
-    require_once 'bdd-link/bdd-link.php';
-
-    $AjouterClient = new ClientCrud($pdo);
-    $AjouterClient->AjouterClient();
-
+$AjouterClient = new ClientCrud($pdo);
+$AjouterClient->AjouterClient();

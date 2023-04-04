@@ -4,7 +4,6 @@ require_once 'functions/utils.php';
 require_once 'Classes/MessageError/LoginError.php';
 require_once 'Classes/MessageSuccess/LoginSuccess.php';
 require_once 'Classes/login.php';
-
 require_once __DIR__ . '/bdd-link/bdd-link.php';
 
 if (empty($_POST) || !isset($_POST['login']) || !isset($_POST['pass'])) {
