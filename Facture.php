@@ -29,51 +29,58 @@ if (array_key_exists('success', $_GET)) { ?>
 	</div>
 <?php } ?>
 
-<h2 class="text-center m-5">Ajouer une facture</h2>
-<form method="post" action="AddFacture.php">
-	<div class="d-flex justify-content-center gap-5">
-		<label for="client_id">Client :</label>
-		<select name="client_id" id="client" required>
-			<?php while ($row = $stmt->fetch()) { ?>
-				<option value="<?php echo $row['id']; ?>"><?php echo $row['nom']; ?></option>
-			<?php } ?>
-		</select>
-		<br>
-		<label for="commentaire">commentaire :</label>
-		<textarea name="commentaire"></textarea>
-
-		<label for="date_facture">Date de facture :</label>
-		<input type="date" id="date_facture" name="date_facture" required>
-	</div>
-	<br>
-
-	<h2 class="text-center"> Ligne de facture</h2>
-
-	<div id="lignes_facture" class="row row-cols-6 justify-content-center">
-		<div class="lignes_factures">
-			<label for="description_1"> Description :</label>
-			<input type="text" id="" name="lignes_facture[0][description]" required>
-
-			<label for="quantite_1"> Quantite :</label>
-			<input type="number" id="quantite" name="lignes_facture[0][quantite]" min="1" required onchange="updatePrixTotal()">
-
-			<label for="prix_unitaire_1"> Prix Unitaire :</label>
-			<input type="number" id="prix_unitaire" name="lignes_facture[0][prix_unitaire]" min="0" required onchange="updatePrixTotal()">
-
+<div class="container mt-5">
+	<h2 class="text-center">Ajouter une facture</h2>
+	<a href="SearchFacture.php" class="btn btn-dark">Rechercher une facture</a>
+	<form method="post" action="AddFacture.php">
+		<div class="row mt-5">
+			<div class="col-4">
+				<label for="client_id" class="form-label">Client :</label>
+				<select name="client_id" id="client" class="form-select" required>
+					<?php while ($row = $stmt->fetch()) { ?>
+						<option value="<?php echo $row['id']; ?>"><?php echo $row['nom']; ?></option>
+					<?php } ?>
+				</select>
+			</div>
+			<div class="col-4">
+				<label for="commentaire" class="form-label">Commentaire :</label>
+				<textarea name="commentaire" id="commentaire" class="form-control"></textarea>
+			</div>
+			<div class="col-4">
+				<label for="date_facture" class="form-label">Date de facture :</label>
+				<input type="date" id="date_facture" name="date_facture" class="form-control" required>
+			</div>
 		</div>
-	</div>
-	<label for="prix_total">Prix total :</label>
-	<input type="number" id="prix_total" name="prix_total" required readonly>
 
-	<div class="d-flex justify-content-center mt-5">
-		<button type="button" onclick="ajoutLigneFacture()"> Ajouter une ligne de facture</button>
-		<input type="submit" name="submit" value="Créer la facture">
-	</div>
+		<div class="row mt-5">
+			<div class="col">
+				<h2 class="text-center"> Ligne de facture</h2>
+				<div id="lignes_facture" class="row justify-content-center">
+					<div class="col-4">
+						<label for="description_1" class="form-label">Description :</label>
+						<input type="text" id="" name="lignes_facture[0][description]" class="form-control" required>
+					</div>
+					<div class="col-4">
+						<label for="quantite_1" class="form-label">Quantité :</label>
+						<input type="number" id="quantite" name="lignes_facture[0][quantite]" class="form-control" min="1" required onchange="updatePrixTotal()">
+					</div>
+					<div class="col-4">
+						<label for="prix_unitaire_1" class="form-label">Prix Unitaire :</label>
+						<input type="number" id="prix_unitaire" name="lignes_facture[0][prix_unitaire]" class="form-control" min="0" required onchange="updatePrixTotal()">
+					</div>
+				</div>
+				<label for="prix_total" class="form-label">Prix total :</label>
+				<input type="number" id="prix_total" name="prix_total" class="form-control" required readonly>
+			</div>
+		</div>
 
-</form>
-
-<div class="d-flex justify-content-center">
-	<a href="SearchFacture.php" class="btn btn-dark text-center mt-5">Rechercher une facture</a>
+		<div class="row mt-5">
+			<div class="col text-center">
+				<button type="button" class="btn btn-primary" onclick="ajoutLigneFacture()">Ajouter une ligne de facture</button>
+				<input type="submit" name="submit" class="btn btn-success" value="Créer la facture">
+			</div>
+		</div>
+	</form>
 </div>
 
 <?php
@@ -100,18 +107,22 @@ if (array_key_exists('error', $_GET)) { ?>
 	function ajoutLigneFacture() {
 		var lignesFacture = document.getElementById("lignes_facture");
 		var nouvelleLigneFacture = document.createElement("div");
-		nouvelleLigneFacture.classList.add("lignes_facture");
+		nouvelleLigneFacture.classList.add("row", "row-cols-3");
 
 		var index = lignesFacture.childElementCount; // on obtient le nombre de ligne actuelle 
 		var labels = ["Description", "Quantité", "Prix unitaire"];
 		var id = ["description", "quantite", "prix_unitaire"];
-		// var obj = [{id: "description", label : "Description"},{id: "quantite", label : "Quantité"},{id: "prix_unitaire", label : "Prix unitaire}]
 
 		for (var i = 0; i < labels.length; i++) {
+			var colDiv = document.createElement("div");
+			colDiv.classList.add("col");
+
 			var label = document.createElement("label");
+			label.classList.add("form-label");
 			label.textContent = labels[i] + " :";
 
 			var input = document.createElement("input");
+			input.classList.add("form-control");
 			input.type = i === 0 ? "text" : "number";
 			// je configure l'attribut name, toLowerCase() = id est convertie en minuscule , il évite les problème de casse
 			input.name = "lignes_facture[" + index + "][" + id[i].toLowerCase().replace("  ", "_") + "]";
@@ -120,14 +131,57 @@ if (array_key_exists('error', $_GET)) { ?>
 			input.id = id[i];
 			input.onchange = updatePrixTotal;
 
-			nouvelleLigneFacture.appendChild(label);
-			nouvelleLigneFacture.appendChild(input);
+			colDiv.appendChild(label);
+			colDiv.appendChild(input);
+			nouvelleLigneFacture.appendChild(colDiv);
 		}
 
 		lignesFacture.appendChild(nouvelleLigneFacture);
 	}
 </script>
 
+<script>
+	// function updatePrixTotal() {
+	// 	var quantites = document.querySelectorAll("#quantite");
+	// 	var prix_unitaires = document.querySelectorAll("#prix_unitaire");
+	// 	var prix_total = 0;
+	// 	for (i = 0; i < quantites.length; i++) {
+	// 		prix_total += quantites[i].value * prix_unitaires[i].value;
+	// 	}
+	// 	document.getElementById("prix_total").value = prix_total;
+	// }
+
+
+	// function ajoutLigneFacture() {
+	// 	var lignesFacture = document.getElementById("lignes_facture");
+	// 	var nouvelleLigneFacture = document.createElement("div");
+	// 	nouvelleLigneFacture.classList.add("lignes_facture");
+
+	// 	var index = lignesFacture.childElementCount; // on obtient le nombre de ligne actuelle 
+	// 	var labels = ["Description", "Quantité", "Prix unitaire"];
+	// 	var id = ["description", "quantite", "prix_unitaire"];
+	// 	// var obj = [{id: "description", label : "Description"},{id: "quantite", label : "Quantité"},{id: "prix_unitaire", label : "Prix unitaire}]
+
+	// 	for (var i = 0; i < labels.length; i++) {
+	// 		var label = document.createElement("label");
+	// 		label.textContent = labels[i] + " :";
+
+	// 		var input = document.createElement("input");
+	// 		input.type = i === 0 ? "text" : "number";
+	// 		// je configure l'attribut name, toLowerCase() = id est convertie en minuscule , il évite les problème de casse
+	// 		input.name = "lignes_facture[" + index + "][" + id[i].toLowerCase().replace("  ", "_") + "]";
+	// 		input.min = i === 1 ? 1 : 0;
+	// 		input.required = true;
+	// 		input.id = id[i];
+	// 		input.onchange = updatePrixTotal;
+
+	// 		nouvelleLigneFacture.appendChild(label);
+	// 		nouvelleLigneFacture.appendChild(input);
+	// 	}
+
+	// 	lignesFacture.appendChild(nouvelleLigneFacture);
+	// }
+</script>
 <?php
 // // on récupère le bouton pour ajouter les lignes
 // const btnAjouterChamp = document.querySelector("#ajouter_ligne");
