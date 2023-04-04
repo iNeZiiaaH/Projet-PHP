@@ -1,6 +1,6 @@
 <?php
 
-class ClientErro
+class ClientError
 {
     public const EMAIL_EXISTS = 1;
 

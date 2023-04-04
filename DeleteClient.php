@@ -9,7 +9,7 @@ SessionError();
 
 require_once 'bdd-link/bdd-link.php';
 
-if (isset($_GET['id']) && !empty($_GET['id'])) {
+if (isset($_GET['id'])) {
 
     $id_client = $_GET['id'];
 

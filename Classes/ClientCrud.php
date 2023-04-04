@@ -100,43 +100,79 @@ class ClientCrud
     public function ModifyClient($id_client, $newEmail, $newNom, $newDomaine, $newAdresse, $newVille, $newCode_Postal, $newPays)
     {
 
-        
-
-            $id_client = $_GET['id'];
-            $newEmail = $_POST['email'];
-            $newNom = $_POST['nom'];
-            $newDomaine = $_POST['domaine'];
-            $newAdresse = $_POST['adresse'];
-            $newVille = $_POST['ville'];
-            $newCode_Postal = $_POST['code_postal'];
-            $newPays = $_POST['pays'];
-
-            $this->email = $newEmail;
-            $this->nom = $newNom;
-            $this->domaine = $newDomaine;
-            $this->adresse = $newAdresse;
-            $this->ville = $newVille;
-            $this->code_postal = $newCode_Postal;
-            $this->pays = $newPays;
 
 
-            $stmt = $this->pdo->prepare('UPDATE client SET email = ?, nom = ?, domaine = ?, adresse = ?, ville = ?, code_postal = ?, pays = ? WHERE id = ?');
-            $result = $stmt->execute([
-                $this->getEmail(),
-                $this->getNom(),
-                $this->getDomaine(),
-                $this->getAdresse(),
-                $this->getVille(),
-                $this->getCodePostal(),
-                $this->getPays(),
-                $id_client
-            ]);
+        $id_client = $_GET['id'];
+        $newEmail = $_POST['email'];
+        $newNom = $_POST['nom'];
+        $newDomaine = $_POST['domaine'];
+        $newAdresse = $_POST['adresse'];
+        $newVille = $_POST['ville'];
+        $newCode_Postal = $_POST['code_postal'];
+        $newPays = $_POST['pays'];
 
-            if ($result) {
-                redirect('ModifyClient.php?success=' . ModifyClientSuccess::MODIFY_CLIENT_SUCCESS . "&id=" . $id_client);
-            } else {
-                echo "Erreur de la modification du client";
-            }
+        $this->email = $newEmail;
+        $this->nom = $newNom;
+        $this->domaine = $newDomaine;
+        $this->adresse = $newAdresse;
+        $this->ville = $newVille;
+        $this->code_postal = $newCode_Postal;
+        $this->pays = $newPays;
+
+
+        $stmt = $this->pdo->prepare('UPDATE client SET email = ?, nom = ?, domaine = ?, adresse = ?, ville = ?, code_postal = ?, pays = ? WHERE id = ?');
+        $result = $stmt->execute([
+            $this->getEmail(),
+            $this->getNom(),
+            $this->getDomaine(),
+            $this->getAdresse(),
+            $this->getVille(),
+            $this->getCodePostal(),
+            $this->getPays(),
+            $id_client
+        ]);
+
+        if ($result) {
+            redirect('ModifyClient.php?success=' . ModifyClientSuccess::MODIFY_CLIENT_SUCCESS . "&id=" . $id_client);
+        } else {
+            echo "Erreur de la modification du client";
         }
     }
+    public function AjouterClient()
+    {
+        // On récupère les champs voulu
+        $this->email = $_POST['email'];
+        $this->nom = $_POST['nom'];
+        $this->domaine = $_POST['domaine'];
+        $this->adresse = $_POST['adresse'];
+        $this->ville = $_POST['ville'];
+        $this->code_postal = $_POST['code_postal'];
+        $this->pays = $_POST['pays'];
 
+        // On vérifie si l'email existe déjà dans la base de données
+        $stmt = $this->pdo->prepare('SELECT COUNT(*) FROM client WHERE email = ?');
+        $stmt->bindValue(1, $this->email, PDO::PARAM_STR);
+        $stmt->execute();
+        $count = $stmt->fetchColumn();
+
+        //condition si un utilisateur existe deja , grace a la requête sql au dessus
+        if ($count > 0) {
+            redirect('Add-Client.php?error=' . ClientError::EMAIL_EXISTS);
+        } else {
+
+            // Ajouter le cleint à la base de données
+            $stmt = $this->pdo->prepare('INSERT INTO client (email, nom, domaine, adresse, ville, code_postal, pays) VALUES (? , ? , ? , ? , ? , ? , ?)'); // requête SQL Pour insérer un nouveau user
+            $stmt->bindValue(1, $this->email, PDO::PARAM_STR);
+            $stmt->bindValue(2, $this->nom, PDO::PARAM_STR);
+            $stmt->bindValue(3, $this->domaine, PDO::PARAM_STR);
+            $stmt->bindValue(4, $this->adresse, PDO::PARAM_STR);
+            $stmt->bindValue(5, $this->ville, PDO::PARAM_STR);
+            $stmt->bindValue(6, $this->code_postal, PDO::PARAM_INT);
+            $stmt->bindValue(7, $this->pays, PDO::PARAM_STR);
+            $stmt->execute();
+
+            // Afficher un message de confirmation
+            redirect('Add-Client.php?success=' . ClientSuccess::ADD_CLIENT_SUCCESS);
+        }
+    }
+}

@@ -54,8 +54,8 @@ require_once 'Layout/navbar.php';
 
 if (array_key_exists('error', $_GET)) { ?>
     <div class="alert alert-danger text-center">
-        <?php echo ClientErro::getErrorMessage(intval($_GET['error'])); ?>
+        <?php echo ClientError::getErrorMessage(intval($_GET['error'])); ?>
     </div>
 <?php }
 
-require_once 'Layout/footer.php'; ?>
+require_once 'Layout/footer.php';
