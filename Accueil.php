@@ -40,7 +40,11 @@ $stmt = $pdo->prepare("SELECT c.nom, COUNT(*) AS nombre_factures, SUM(f.total) A
 $stmt->execute();
 $clients = $stmt->fetchAll();
 
-?>
+if (array_key_exists('success', $_GET)) { ?>
+    <div class="alert alert-success text-center">
+        <?php echo LoginSuccess::getSuccessMessage(intval($_GET['success'])); ?>
+    </div>
+<?php } ?>
 
 <div class="container">
     <div class="row">
@@ -49,7 +53,7 @@ $clients = $stmt->fetchAll();
         </div>
     </div>
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-lg-6">
             <h2 class="mb-3">Dernières factures</h2>
             <table class="table table-striped">
                 <thead>
@@ -72,7 +76,7 @@ $clients = $stmt->fetchAll();
                 </tbody>
             </table>
         </div>
-        <div class="col-md-6">
+        <div class="col-lg-6">
             <h2 class="mb-3">Clients les plus actifs</h2>
             <table class="table table-striped">
                 <thead>
@@ -102,10 +106,4 @@ $clients = $stmt->fetchAll();
 </div>
 
 <?php
-if (array_key_exists('success', $_GET)) { ?>
-    <div class="alert alert-success text-center">
-        <?php echo LoginSuccess::getSuccessMessage(intval($_GET['success'])); ?>
-    </div>
-<?php }
-
 require_once 'Layout/footer.php';

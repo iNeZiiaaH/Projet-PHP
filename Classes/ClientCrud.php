@@ -79,8 +79,6 @@ class ClientCrud
     public function ModifyClient($id_client, $newEmail, $newNom, $newDomaine, $newAdresse, $newVille, $newCode_Postal, $newPays)
     {
 
-
-
         $id_client = $_GET['id'];
         $newEmail = $_POST['email'];
         $newNom = $_POST['nom'];

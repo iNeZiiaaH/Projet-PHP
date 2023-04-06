@@ -66,7 +66,7 @@ if (array_key_exists('success', $_GET)) { ?>
 					</div>
 					<div class="col-4">
 						<label for="prix_unitaire_1" class="form-label">Prix Unitaire :</label>
-						<input type="number" id="prix_unitaire" name="lignes_facture[0][prix_unitaire]" class="form-control" min="0" required onchange="updatePrixTotal()">
+						<input type="number" id="prix_unitaire" name="lignes_facture[0][prix_unitaire]" class="form-control" required onchange="updatePrixTotal()" step="0.01">
 					</div>
 				</div>
 				<label for="prix_total" class="form-label">Prix total :</label>

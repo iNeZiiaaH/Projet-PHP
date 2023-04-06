@@ -10,7 +10,7 @@ class LoginError
   {
     switch ($code) {
       case self::LOGIN_INVALID:
-        return "Login ou Mot de passe Incorrect";
+        return "Login incorrect";
         break;
       case self::CONNECTION_FAILED:
         return "Veuillez vous connecter pour accéder a cette page";
