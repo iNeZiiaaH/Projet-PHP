@@ -17,9 +17,9 @@ if (isset($_GET['id'])) {
     ]);
     $client_nom = $stmt_client->fetchColumn();
 
-    $query = "SELECT * FROM Facture WHERE client_id = :client_id";
-    $stmt = $pdo->prepare($query);
-    $stmt->execute([
+    $query_Facture = "SELECT * FROM Facture WHERE client_id = :client_id";
+    $stmt_Facture = $pdo->prepare($query_Facture);
+    $stmt_Facture->execute([
         'client_id' => $clientid
     ]);
 
@@ -31,36 +31,36 @@ if (isset($_GET['id'])) {
 
         <!-- j'effectue une première boucle pour parcourir chaque facture et récupérer les informations. -->
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-            <?php while ($stmt1 = $stmt->fetch()) { ?>
+            <?php while ($stmt_Factures = $stmt_Facture->fetch()) { ?>
                 <div class="col">
                     <div class="card border-dark">
                         <div class="card-header">
-                            <h5 class="card-title m-0">Facture n° <?php echo $stmt1['numero_facture']; ?></h5>
+                            <h5 class="card-title m-0">Facture n° <?php echo $stmt_Factures['numero_facture']; ?></h5>
                         </div>
                         <div class="card-body">
-                            <p class="card-text"> Date : <?php echo $stmt1['date_facture'] ?></p>
-                            <p class="card-text"> Total : <?php echo $stmt1['total'] ?>€</p>
-                            <p class="card-text"> Commentaire : <?php echo $stmt1['commentaire'] ?></p>
+                            <p class="card-text"> Date : <?php echo $stmt_Factures['date_facture'] ?></p>
+                            <p class="card-text"> Total : <?php echo $stmt_Factures['total'] ?>€</p>
+                            <p class="card-text"> Commentaire : <?php echo $stmt_Factures['commentaire'] ?></p>
 
                             <!-- j'effectue ma deuxième requête pour récupérer les informations des lignes de la factures en effectuant une boucle. -->
                             <?php
-                            $query2 = "SELECT * FROM Ligne_Facture WHERE id_facture = :id";
-                            $stmt2 = $pdo->prepare($query2);
-                            $stmt2->execute([
-                                'id' => $stmt1["id"]
+                            $query_Ligne_Facture = "SELECT * FROM Ligne_Facture WHERE id_facture = :id";
+                            $stmt_Ligne_Facture = $pdo->prepare($query_Ligne_Facture);
+                            $stmt_Ligne_Facture->execute([
+                                'id' => $stmt_Factures["id"]
                             ]);
                             ?>
 
                             <ul class="list-group list-group-flush">
-                                <?php while ($row = $stmt2->fetch()) { ?>
+                                <?php while ($Ligne_Facture = $stmt_Ligne_Facture->fetch()) { ?>
                                     <li class="list-group-item">
                                         <div class="d-flex justify-content-between">
                                             <div class="me-auto">
-                                                <p class="card-text">Produit : <?php echo $row['description'] ?></p>
-                                                <p class="card-text">Quantité : <?php echo $row['quantite'] ?></p>
+                                                <p class="card-text">Produit : <?php echo $Ligne_Facture['description'] ?></p>
+                                                <p class="card-text">Quantité : <?php echo $Ligne_Facture['quantite'] ?></p>
                                             </div>
                                             <div class="text-end">
-                                                <p class="card-text">Prix unitaire : <?php echo $row['prix_unitaire'] ?>€</p>
+                                                <p class="card-text">Prix unitaire : <?php echo $Ligne_Facture['prix_unitaire'] ?>€</p>
                                             </div>
                                         </div>
                                     </li>
@@ -69,7 +69,7 @@ if (isset($_GET['id'])) {
 
                             <!-- Bonus essayer éditer la facture son forme de PDF avec FPDF -->
                             <div class="mt-3 text-end">
-                                <a href="FacturePDF.php?id=<?php echo $stmt1['id']; ?>" class="btn btn-sm btn-dark">Télécharger</a>
+                                <a href="FacturePDF.php?id=<?php echo $stmt_Factures['id']; ?>" class="btn btn-sm btn-dark">Télécharger</a>
                             </div>
                         </div>
                     </div>

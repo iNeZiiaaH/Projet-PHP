@@ -27,7 +27,15 @@ if (array_key_exists('success', $_GET)) { ?>
 	<div class="alert alert-success text-center">
 		<?php echo FactureSuccess::getSuccessMessage(intval($_GET['success'])); ?>
 	</div>
-<?php } ?>
+<?php } 
+
+//Afficher le message que le facture à bien été supprimé
+if (array_key_exists('error', $_GET)) { ?>
+	<div class="alert alert-danger text-center">
+		<?php echo FactureError::getErrorMessage(intval($_GET['error'])); ?>
+	</div>
+<?php }
+?>
 
 <div class="container mt-5">
 	<h2 class="text-center">Ajouter une facture</h2>
@@ -83,14 +91,6 @@ if (array_key_exists('success', $_GET)) { ?>
 	</form>
 </div>
 
-<?php
-//Afficher le message que le facture à bien été supprimé
-if (array_key_exists('error', $_GET)) { ?>
-	<div class="alert alert-danger text-center">
-		<?php echo FactureError::getErrorMessage(intval($_GET['error'])); ?>
-	</div>
-<?php }
-?>
 
 <script defer>
 	function updatePrixTotal() {

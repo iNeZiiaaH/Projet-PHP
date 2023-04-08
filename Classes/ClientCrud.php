@@ -48,7 +48,7 @@ class ClientCrud
         return $this->pays;
     }
 
-    public function afficherClient($clientId)
+    public function ViewClient($clientId)
     {
 
             $query = "SELECT * FROM client WHERE id=:id";
@@ -115,7 +115,7 @@ class ClientCrud
             redirect('ModifyClient.php?error=' . ModifyClientError::MODIFY_CLIENT_ERROR);
         }
     }
-    public function AjouterClient()
+    public function AddClient()
     {
         // On récupère les champs voulu
         $this->email = $_POST['email'];

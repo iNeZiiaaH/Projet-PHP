@@ -3,6 +3,7 @@ require_once 'functions/utils.php';
 require_once 'functions/SessionError.php';
 require_once 'Classes/MessageError/LoginError.php';
 require_once 'Classes/MessageError/AddClientError.php';
+require_once 'Classes/MessageError/IncompleteFields.php';
 require_once 'Classes/MessageSuccess/AddClientSuccess.php';
 
 // fonction qui redirige vers la page de connexion si l'utilisateur essaye de passer par URL sans être connecter
@@ -55,6 +56,12 @@ require_once 'Layout/navbar.php';
 if (array_key_exists('error', $_GET)) { ?>
     <div class="alert alert-danger text-center">
         <?php echo ClientError::getErrorMessage(intval($_GET['error'])); ?>
+    </div>
+<?php }
+
+if (array_key_exists('error', $_GET)) { ?>
+    <div class="alert alert-danger text-center">
+        <?php echo IncompleteFields::getErrorMessage(intval($_GET['error'])); ?>
     </div>
 <?php }
 

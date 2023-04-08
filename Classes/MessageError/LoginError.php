@@ -6,9 +6,9 @@ class LoginError
   public const CONNECTION_FAILED = 2;
   public const PASSWORD_INVALID = 3;
 
-  public static function getErrorMessage(int $code): string
+  public static function getErrorMessage(int $code_erreur): string
   {
-    switch ($code) {
+    switch ($code_erreur) {
       case self::LOGIN_INVALID:
         return "Login incorrect";
         break;

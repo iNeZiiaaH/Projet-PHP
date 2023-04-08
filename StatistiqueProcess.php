@@ -1,17 +1,15 @@
 <?php
+require_once 'Classes/Statistique.php';
+
+// on instancie la classe Statistique
+$statistique = new Statistique($pdo);
+
 if (isset($_GET['id'])) {
 
-    // V2
     $client_id = $_GET['id'];
+    $clientDetails = $statistique->getClientDetails($client_id);
 
-    $query = 'SELECT client.nom, SUM(total) AS total_sum FROM Facture
-                JOIN client ON Facture.client_id = client.id
-                WHERE Facture.client_id = :client_id
-                GROUP BY client.id';
-    $stmt = $pdo->prepare($query);
-    $stmt->execute([
-        'client_id' => $client_id
-    ]); ?>
+?>
 
     <div class="container">
         <div class="row">
@@ -25,7 +23,7 @@ if (isset($_GET['id'])) {
                         </tr>
                     </thead>
                     <tbody>
-                        <?php while ($row = $stmt->fetch()) { ?>
+                        <?php foreach ($clientDetails as $row) { ?>
                             <tr>
                                 <td><?php echo $row['nom']; ?></td>
                                 <td><?php echo $row['total_sum']; ?> €</td>
@@ -39,19 +37,3 @@ if (isset($_GET['id'])) {
 
 <?php } 
 
-//V1 pour afficher les totals de chaque client
-
-// $client_id = $_GET['id'];
-
-// $query = "SELECT client_id, SUM(total) as total_sum FROM Facture WHERE client_id = :client_id";
-// $stmt = $pdo->prepare($query);
-// $stmt->execute([
-//     'client_id' => $client_id
-// ]
-// );
-
-// $result = $stmt->fetch();
-// $total_sum = $result['total_sum'];
-
-//     // afficher les résultats
-//     echo "Chiffre d'affaire du client : " . $clientNom. " : ". $total_sum. "€";

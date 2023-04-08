@@ -15,7 +15,7 @@ if (isset($_POST['modifier_client'])) {
         exit;
     }
 
-    $client = new ClientCrud($pdo);
-    $result = $client->ModifyClient($_GET['id'], $_POST['email'], $_POST['nom'], $_POST['domaine'], $_POST['adresse'], $_POST['ville'], $_POST['code_postal'], $_POST['pays']);
+    $ModifyClient = new ClientCrud($pdo);
+    $result = $ModifyClient->ModifyClient($_GET['id'], $_POST['email'], $_POST['nom'], $_POST['domaine'], $_POST['adresse'], $_POST['ville'], $_POST['code_postal'], $_POST['pays']);
 
 }
