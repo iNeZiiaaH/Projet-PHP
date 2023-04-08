@@ -5,7 +5,6 @@ require_once 'Classes/MessageError/LoginError.php';
 require_once 'Classes/MessageSuccess/AddFactureSuccess.php';
 require_once 'Classes/MessageError/AddFactureError.php';
 
-
 require_once 'Layout/header.php';
 require_once 'Layout/navbar.php';
 
@@ -91,55 +90,12 @@ if (array_key_exists('error', $_GET)) { ?>
 	</form>
 </div>
 
-
-<script defer>
-	function updatePrixTotal() {
-		var quantites = document.querySelectorAll("#quantite");
-		var prix_unitaires = document.querySelectorAll("#prix_unitaire");
-		var prix_total = 0;
-		for (i = 0; i < quantites.length; i++) {
-			prix_total += quantites[i].value * prix_unitaires[i].value;
-		}
-		document.getElementById("prix_total").value = prix_total;
-	}
+<!-- Je viens récupérer mes scripts JS pour calculer automatiquement le prix total + le fichier pour ajouter des lignes dans la factures -->
+<script defer src="Assets/template/UpdatePrixTotal.js"></script>
+<script defer src="Assets/template/AddInvoiceLine.js"></script>
 
 
-	function ajoutLigneFacture() {
-		var lignesFacture = document.getElementById("lignes_facture");
-		var nouvelleLigneFacture = document.createElement("div");
-		nouvelleLigneFacture.classList.add("row", "row-cols-3");
-
-		var index = lignesFacture.childElementCount; // on obtient le nombre de ligne actuelle 
-		var labels = ["Description", "Quantité", "Prix unitaire"];
-		var id = ["description", "quantite", "prix_unitaire"];
-
-		for (var i = 0; i < labels.length; i++) {
-			var colDiv = document.createElement("div");
-			colDiv.classList.add("col");
-
-			var label = document.createElement("label");
-			label.classList.add("form-label");
-			label.textContent = labels[i] + " :";
-
-			var input = document.createElement("input");
-			input.classList.add("form-control");
-			input.type = i === 0 ? "text" : "number";
-			// je configure l'attribut name, toLowerCase() = id est convertie en minuscule , il évite les problème de casse
-			input.name = "lignes_facture[" + index + "][" + id[i].toLowerCase().replace("  ", "_") + "]";
-			input.min = i === 1 ? 1 : 0;
-			input.required = true;
-			input.id = id[i];
-			input.onchange = updatePrixTotal;
-
-			colDiv.appendChild(label);
-			colDiv.appendChild(input);
-			nouvelleLigneFacture.appendChild(colDiv);
-		}
-
-		lignesFacture.appendChild(nouvelleLigneFacture);
-	}
-</script>
-
+<!-- Test v2 -->
 <script>
 	// function updatePrixTotal() {
 	// 	var quantites = document.querySelectorAll("#quantite");
@@ -182,6 +138,8 @@ if (array_key_exists('error', $_GET)) { ?>
 	// 	lignesFacture.appendChild(nouvelleLigneFacture);
 	// }
 </script>
+
+<!-- test v1 -->
 <?php
 // // on récupère le bouton pour ajouter les lignes
 // const btnAjouterChamp = document.querySelector("#ajouter_ligne");

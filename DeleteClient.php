@@ -19,5 +19,4 @@ if (isset($_GET['id'])) {
     $stmt->execute();
 
     redirect('Client.php?success=' . DeleteClientSuccess::DELETE_CLIENT_SUCCESS);
-    // ajouter classe pour afficher un message success
 }
