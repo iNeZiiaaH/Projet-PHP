@@ -1,27 +1,27 @@
-# Application de Gestion d'entreprise avec édition de facture
+# Application de Gestion d'entreprise avec édition de factures
 
 ## Description Du Projet
 
-Le projet consiste en une application de gestion d'entreprise permettant d'ajouter des clients et de saisir des factures. Les factures peuvent être enregistrées sans besoin de PDF(que j'ai finalement réalisé pour être plus cohérent à la réalité). L'application offre également une page de statistiques qui affiche le chiffre d'affaires de l'année en cours.
+Le projet consiste en une application de gestion d'entreprise permettant d'ajouter des clients et de saisir des factures. Les factures peuvent être enregistrées sans besoin de PDF (que j'ai finalement réalisé pour être plus cohérent à la réalité). L'application offre également une page de statistiques qui affiche le chiffre d'affaires de l'année en cours.
 
 ## Les fonctionnalités
 
-* Créer une page pour ce connecter en tant Administrateur.
-* Créer Un CRUD pour les clients.
-* Créer une page pour pouvoir crée des factures.
+* Créer une page pour se connecter en tant qu'administrateur.
+* Créer un CRUD pour les clients.
+* Créer une page pour pouvoir créer des factures.
 * Pouvoir voir une facture mais aussi l'éditer sous forme de PDF.
-* Créer Une page statistique pour voir le CA en cours de chaques Clients.
+* Créer une page statistique pour voir le chiffre d'affaires en cours de chaque client.
 
 ## Les Étapes pour réaliser ce projet 
 
-1. Identifiaction des besoins clients en réalisant un MCD, MLD, MPD.
-2. Création de La Base de donnée via phpMyAdmin.
-3. Création de la page Administration en ce connectant.
-4. Première page d'accueil (Futur Tableau de bord pour voir les dernières factures crée et le chiffre d'affaire pour chaque client).
-5. Page Client où l'on peut afficher les informations du client mais aussi le modifié où créer un nouveau client.
-6. Page facture Pour pouvoir crée des factures mais aussi un bouton pour pouvoir rechercher une facture en fonction du client choisis.
-7. Une page statistique pour pouvoir affiché le CA de chaque clients en le selectionnant via une liste déroulantes qui affiche tous les clients.
-8. Un bouton pour pouvoir ce déconnecter de la session.
+1. Identification des besoins clients en réalisant un MCD, MLD, MPD.
+2. Création de la base de données via phpMyAdmin.
+3. Création de la page d'administration pour se connecter.
+4. Première page d'accueil (futur tableau de bord pour voir les dernières factures créées et le chiffre d'affaires pour chaque client).
+5. Page client où l'on peut afficher les informations du client mais aussi les modifier ou créer un nouveau client.
+6. Page facture pour pouvoir créer des factures mais aussi un bouton pour pouvoir rechercher une facture en fonction du client choisi.
+7. Une page statistique pour pouvoir afficher le chiffre d'affaires de chaque client en le sélectionnant via une liste déroulante qui affiche tous les clients.
+8. Un bouton pour pouvoir se déconnecter de la session.
 
 ### MCD ET MLD
 
@@ -54,5 +54,3 @@ Version final que j'ai finalement garder après plusieurs recherche sur internet
 Voici le formulaire qui va avec pour l'ajout de ligne :
 
 ![Formulaire ajout de facture](img/Formulaire_facture.png)
-
-
