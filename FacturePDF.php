@@ -8,11 +8,10 @@ SessionError();
 
 require_once 'bdd-link/bdd-link.php';
 
-
 if (isset($_GET['id'])) {
     $clientid = $_GET['id'];
 
-// Requête SQL pour selectionner toutes les colonnes de la table facture et aussi la colonne nom de la table client. J'utilise une jointure pour pouvoir récupérer ID spécifié 
+    // Requête SQL pour selectionner toutes les colonnes de la table facture et aussi la colonne nom de la table client. J'utilise une jointure pour pouvoir récupérer ID spécifié 
     $query_Facture_Client = "SELECT Facture.*, Client.nom AS nom_client
     FROM Facture 
     INNER JOIN Client ON Facture.client_id = Client.id
@@ -24,7 +23,7 @@ if (isset($_GET['id'])) {
 
     if ($stmt_Factures_Clients = $stmt_Facture_Client->fetch()) {
         $pdf = new tFPDF();
-        
+
         // Ajoute une police Unicode (utilise UTF-8)
         $pdf->AddFont('DejaVu', '', 'DejaVuSansCondensed.ttf', true);
         $pdf->SetFont('DejaVu', '', 14);
@@ -53,12 +52,12 @@ if (isset($_GET['id'])) {
         $pdf->Cell(30, 10, 'Total');
         $pdf->Ln();
 
-        // Boucle pour ajouter chaque ligne de la facture
         $query_Ligne_Facture = "SELECT * FROM Ligne_Facture WHERE id_facture = :id";
         $stmt_Ligne_Facture = $pdo->prepare($query_Ligne_Facture);
         $stmt_Ligne_Facture->execute(['id' => $stmt_Factures_Clients['id']]);
         $total_facture = 0;
 
+        // Boucle pour ajouter chaque ligne de la facture
         while ($Ligne_Facture = $stmt_Ligne_Facture->fetch()) {
             $pdf->Cell(40, 10, $Ligne_Facture['description']);
             $pdf->Cell(30, 10, $Ligne_Facture['quantite']);

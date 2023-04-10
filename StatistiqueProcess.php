@@ -8,9 +8,7 @@ if (isset($_GET['id'])) {
 
     $client_id = $_GET['id'];
     $clientDetails = $statistique->getClientDetails($client_id);
-
 ?>
-
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -34,6 +32,5 @@ if (isset($_GET['id'])) {
             </div>
         </div>
     </div>
-
 <?php } 
 

@@ -137,7 +137,7 @@ class ClientCrud
             redirect('Add-Client.php?error=' . ClientError::EMAIL_EXISTS);
         } else {
 
-            // Ajouter le cleint à la base de données
+            // Ajouter le client à la base de données
             $stmt = $this->pdo->prepare('INSERT INTO client (email, nom, domaine, adresse, ville, code_postal, pays) VALUES (? , ? , ? , ? , ? , ? , ?)'); // requête SQL Pour insérer un nouveau user
             $stmt->bindValue(1, $this->email, PDO::PARAM_STR);
             $stmt->bindValue(2, $this->nom, PDO::PARAM_STR);
