@@ -71,9 +71,9 @@ class Facture
 
 
         // Insertion des données dans la table "facture"
-        $query = "INSERT INTO Facture (numero_facture, date_facture, total, commentaire, client_id) VALUES (:numero_facture, :date_facture, :total, :commentaire, :client_id)";
-        $stmt = $pdo->prepare($query);
-        $stmt->execute([
+        $query_Insert_Facture = "INSERT INTO Facture (numero_facture, date_facture, total, commentaire, client_id) VALUES (:numero_facture, :date_facture, :total, :commentaire, :client_id)";
+        $stmt_Insert_Facture = $pdo->prepare($query_Insert_Facture);
+        $stmt_Insert_Facture->execute([
             'numero_facture' => uniqid(), // génération d'un numéro de facture unique
             'date_facture' => $this->date_facture->format('Y-m-d'),
             'commentaire' => $this->commentaire,
@@ -94,9 +94,9 @@ class Facture
             $this->total += $prix_total;
 
             // Insertion des données dans la table "ligne_facture"
-            $query = "INSERT INTO Ligne_Facture (description, quantite, prix_unitaire, prix_total, id_facture) VALUES (:description, :quantite, :prix_unitaire, :prix_total, :id_facture)";
-            $stmt = $pdo->prepare($query);
-            $stmt->execute([
+            $query_Ligne_Facture = "INSERT INTO Ligne_Facture (description, quantite, prix_unitaire, prix_total, id_facture) VALUES (:description, :quantite, :prix_unitaire, :prix_total, :id_facture)";
+            $stmt_Ligne_Facture = $pdo->prepare($query_Ligne_Facture);
+            $stmt_Ligne_Facture->execute([
                 'description' => $description,
                 'quantite' => $quantite,
                 'prix_unitaire' => $prix_unitaire,

@@ -51,12 +51,12 @@ class ClientCrud
     public function ViewClient($clientId)
     {
 
-            $query = "SELECT * FROM client WHERE id=:id";
-            $stmt = $this->pdo->prepare($query);
-            $stmt->execute([
+            $query_view_client = "SELECT * FROM client WHERE id=:id";
+            $stmt_view_client = $this->pdo->prepare($query_view_client);
+            $stmt_view_client->execute([
                 'id' => $clientId
             ]);
-            $client = $stmt->fetch();
+            $client = $stmt_view_client->fetch();
 
             //  condition si aucun client n'est trouvé
             if ($client === false) {
@@ -97,8 +97,8 @@ class ClientCrud
         $this->pays = $newPays;
 
 
-        $stmt = $this->pdo->prepare('UPDATE client SET email = ?, nom = ?, domaine = ?, adresse = ?, ville = ?, code_postal = ?, pays = ? WHERE id = ?');
-        $result = $stmt->execute([
+        $stmt_modify_client = $this->pdo->prepare('UPDATE client SET email = ?, nom = ?, domaine = ?, adresse = ?, ville = ?, code_postal = ?, pays = ? WHERE id = ?');
+        $result = $stmt_modify_client->execute([
             $this->getEmail(),
             $this->getNom(),
             $this->getDomaine(),
@@ -117,7 +117,7 @@ class ClientCrud
     }
     public function AddClient()
     {
-        // On récupère les champs voulu
+        // On récupère les champs du formulaire en méthode post
         $this->email = $_POST['email'];
         $this->nom = $_POST['nom'];
         $this->domaine = $_POST['domaine'];
@@ -126,29 +126,31 @@ class ClientCrud
         $this->code_postal = $_POST['code_postal'];
         $this->pays = $_POST['pays'];
 
-        // On vérifie si l'email existe déjà dans la base de données
-        $stmt = $this->pdo->prepare('SELECT COUNT(*) FROM client WHERE email = ?');
-        $stmt->bindValue(1, $this->email, PDO::PARAM_STR);
-        $stmt->execute();
-        $count = $stmt->fetchColumn();
+        // On vérifie si l'email existe déjà dans la base de données via la requête SQL
+        $stmt_email = $this->pdo->prepare('SELECT COUNT(*) FROM client WHERE email = ?');
+        $stmt_email->bindValue(1, $this->email, PDO::PARAM_STR);
+        $stmt_email->execute();
+        $count_email = $stmt_email->fetchColumn();
 
         //condition si un utilisateur existe deja , grace a la requête sql au dessus
-        if ($count > 0) {
+        if ($count_email > 0) {
             redirect('Add-Client.php?error=' . ClientError::EMAIL_EXISTS);
         } else {
 
             // Ajouter le client à la base de données
-            $stmt = $this->pdo->prepare('INSERT INTO client (email, nom, domaine, adresse, ville, code_postal, pays) VALUES (? , ? , ? , ? , ? , ? , ?)'); // requête SQL Pour insérer un nouveau user
-            $stmt->bindValue(1, $this->email, PDO::PARAM_STR);
-            $stmt->bindValue(2, $this->nom, PDO::PARAM_STR);
-            $stmt->bindValue(3, $this->domaine, PDO::PARAM_STR);
-            $stmt->bindValue(4, $this->adresse, PDO::PARAM_STR);
-            $stmt->bindValue(5, $this->ville, PDO::PARAM_STR);
-            $stmt->bindValue(6, $this->code_postal, PDO::PARAM_INT);
-            $stmt->bindValue(7, $this->pays, PDO::PARAM_STR);
-            $stmt->execute();
+            $stmt_add_client = $this->pdo->prepare('INSERT INTO client (email, nom, domaine, adresse, ville, code_postal, pays) VALUES (? , ? , ? , ? , ? , ? , ?)'); // requête SQL Pour insérer un nouveau user
+            $stmt_add_client->bindValue(1, $this->email, PDO::PARAM_STR);
+            $stmt_add_client->bindValue(2, $this->nom, PDO::PARAM_STR);
+            $stmt_add_client->bindValue(3, $this->domaine, PDO::PARAM_STR);
+            $stmt_add_client->bindValue(4, $this->adresse, PDO::PARAM_STR);
+            $stmt_add_client->bindValue(5, $this->ville, PDO::PARAM_STR);
+            $stmt_add_client->bindValue(6, $this->code_postal, PDO::PARAM_INT);
+            $stmt_add_client->bindValue(7, $this->pays, PDO::PARAM_STR);
+            // pas besoin de mettre des paramètres dans le execute car les valeurs sont déjà attribuer avec la méthode bondValue
+            $stmt_add_client->execute();
+            
 
-            // Afficher un message de confirmation
+            // Afficher un message de confirmation ajout de client
             redirect('Add-Client.php?success=' . ClientSuccess::ADD_CLIENT_SUCCESS);
         }
     }

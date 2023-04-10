@@ -15,6 +15,7 @@ function ajoutLigneFacture() {
         label.classList.add("form-label");
         label.textContent = labels[i] + " :";
 
+        // Je configure mes input
         var input = document.createElement("input");
         input.classList.add("form-control");
         input.type = i === 0 ? "text" : "number";
@@ -24,6 +25,7 @@ function ajoutLigneFacture() {
         input.required = true;
         input.id = id[i];
         input.onchange = updatePrixTotal;
+        input.step = "0.01";
 
         colDiv.appendChild(label);
         colDiv.appendChild(input);

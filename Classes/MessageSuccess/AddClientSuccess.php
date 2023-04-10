@@ -1,5 +1,4 @@
 <?php
-require_once __DIR__ . '/../Exception/ClientSuccessException.php';
 class ClientSuccess
 {
   public const ADD_CLIENT_SUCCESS = 1;

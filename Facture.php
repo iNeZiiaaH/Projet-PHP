@@ -69,6 +69,7 @@ if (array_key_exists('error', $_GET)) { ?>
 					</div>
 					<div class="col-4">
 						<label for="quantite_1" class="form-label">Quantité :</label>
+						<!-- Je stock les données dans un tableau associatif (Lignes factures), l'index 0 signifie que dans le tableau il y auras plusieurs données et que le premier éléments est séléctionné -->
 						<input type="number" id="quantite" name="lignes_facture[0][quantite]" class="form-control" min="1" required onchange="updatePrixTotal()">
 					</div>
 					<div class="col-4">

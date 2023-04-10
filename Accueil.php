@@ -17,28 +17,28 @@ require_once 'Layout/navbar.php'; ?>
 
 <?php
 // Récupération des dernières factures
-$stmt = $pdo->prepare("SELECT f.numero_facture, f.date_facture, f.total, c.nom 
+$stmt_facture = $pdo->prepare("SELECT f.numero_facture, f.date_facture, f.total, c.nom 
         FROM facture f 
         JOIN client c ON f.client_id = c.id 
         ORDER BY f.date_facture DESC 
         LIMIT 10");
-$stmt->execute();
-$factures = $stmt->fetchAll();
+$stmt_facture->execute();
+$factures = $stmt_facture->fetchAll();
 
 // Récupération du chiffre d'affaires total
-$stmt = $pdo->prepare("SELECT SUM(total) AS chiffre_affaires FROM facture");
-$stmt->execute();
-$chiffre_affaires = $stmt->fetchColumn();
+$stmt_chiffre_affaire = $pdo->prepare("SELECT SUM(total) AS chiffre_affaires FROM facture");
+$stmt_chiffre_affaire->execute();
+$chiffre_affaires = $stmt_chiffre_affaire->fetchColumn();
 
 // Récupération des clients les plus actifs
-$stmt = $pdo->prepare("SELECT c.nom, COUNT(*) AS nombre_factures, SUM(f.total) AS montant_total 
+$stmt_client = $pdo->prepare("SELECT c.nom, COUNT(*) AS nombre_factures, SUM(f.total) AS montant_total 
         FROM facture f 
         JOIN client c ON f.client_id = c.id 
         GROUP BY c.nom 
         ORDER BY montant_total DESC 
         LIMIT 10");
-$stmt->execute();
-$clients = $stmt->fetchAll();
+$stmt_client->execute();
+$clients = $stmt_client->fetchAll();
 
 if (array_key_exists('success', $_GET)) { ?>
     <div class="alert alert-success text-center">
