@@ -27,3 +27,32 @@ Le projet consiste en une application de gestion d'entreprise permettant d'ajout
 
 ![MCD](img/MCD_Projet.png)
 ![MLD](img/MLD_Projet.png)
+
+
+## Problèmatique rencontrée au cours de ce projet
+
+1. Le plus gros problème de ce projet a été de pouvoir ajouter des lignes pour une facture. J'ai dû utiliser JavaScript pour pouvoir créer un bouton qui ajoute des lignes pour une facture. La deuxième problématique a été d'enregistrer dans la BDD les nouvelles lignes que l'on ajoute. J'ai dû effectuer une boucle pour prendre en compte chaque ligne ajoutée.
+
+2. Le deuxième problème rencontré, mais qui était optionnel pour le projet, a été de pouvoir télécharger les factures sous forme de PDF. J'ai donc dû me documenter et chercher comment faire. J'ai trouvé le logiciel FPDF qui génère des fichiers sous forme de PDF en PHP. Il y avait aussi "wkhtmltopdf", mais j'ai préféré utiliser FPDF car je trouvais cela plus facile.
+
+
+
+## Présentation de quelque éssais en JavaScript pour ajouter des lignes
+
+### Version 1
+
+Première version pour ajouter une ligne pour la facture, que j'ai finalement pas garder suite à certain bug que je n'arrivais pas à résoudre.
+
+![Fonction Ajouter une ligne](img/Version_1_ajouter_ligne.png)
+
+### Version final 
+
+Version final que j'ai finalement garder après plusieurs recherche sur internet et plusieurs essais, j'ai finalement réussie avec cette version.
+
+![Fonction Ajouter une ligne final](img/Version_final_ajouter_ligne.png)
+
+Voici le formulaire qui va avec pour l'ajout de ligne :
+
+![Formulaire ajout de facture](img/Formulaire_facture.png)
+
+
