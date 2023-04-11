@@ -1,10 +1,15 @@
 <?php
+// Récupération des fonctions
 require_once 'functions/utils.php';
 require_once 'functions/SessionError.php';
+
+// Récupération des classes pour les erreurs et les succès
 require_once 'Classes/MessageError/LoginError.php';
 require_once 'Classes/MessageError/AddClientError.php';
 require_once 'Classes/MessageError/IncompleteFields.php';
 require_once 'Classes/MessageSuccess/AddClientSuccess.php';
+
+// Récupération de la classe ClientCrud pour pouvoir utiliser la méthode 
 require_once 'Classes/ClientCrud.php';
 
 // fonction qui redirige vers la page de connexion si l'utilisateur essaye de passer par URL sans être connecter
@@ -21,5 +26,5 @@ require_once 'bdd-link/bdd-link.php';
 // j'instancie la classe ClientCrud
 $AjouterClient = new ClientCrud($pdo);
 
-// Puis j'utilise la fonction pour ajouter le client 
+// Puis j'utilise la méthode pour ajouter le client 
 $AjouterClient->AddClient();

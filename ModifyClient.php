@@ -10,7 +10,7 @@ require_once 'Classes/MessageError/IncompleteFields.php';
 SessionError();
 
 // on récupère la base de donnée
-require_once 'bdd-link/bdd-link.php';
+require_once __DIR__ . '/bdd-link/bdd-link.php';
 
 // on récupère id du client a modifier
 $id_client = $_GET['id'];

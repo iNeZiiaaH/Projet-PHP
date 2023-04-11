@@ -10,8 +10,10 @@ require_once 'Classes/MessageSuccess/LoginSuccess.php';
 // fonction qui redirige vers la page de connexion si l'utilisateur essaye de passer par URL sans être connecter
 SessionError();
 
-require_once 'bdd-link/bdd-link.php';
+// Récupération de la BDD
+require_once __DIR__ . '/bdd-link/bdd-link.php';
 
+// Récupération du header et de la navabar pour toutes les pages quand Admin est connecté 
 require_once 'Layout/header.php';
 require_once 'Layout/navbar.php'; ?>
 
@@ -65,6 +67,7 @@ if (array_key_exists('success', $_GET)) { ?>
                     </tr>
                 </thead>
                 <tbody>
+                    <!-- J'effectue une boucle pour récupérer les infos de chaque facture -->
                     <?php foreach ($factures as $facture) { ?>
                         <tr>
                             <td><?php echo $facture["numero_facture"]; ?></td>
@@ -87,6 +90,7 @@ if (array_key_exists('success', $_GET)) { ?>
                     </tr>
                 </thead>
                 <tbody>
+                    <!-- J'effectue une boucle pour récupérer les infos des clients -->
                     <?php foreach ($clients as $client) { ?>
                         <tr>
                             <td><?php echo $client["nom"]; ?></td>

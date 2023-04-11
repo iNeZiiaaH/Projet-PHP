@@ -1,6 +1,9 @@
 <?php
+// Je récupère mes fonctions.
 require_once 'functions/utils.php';
 require_once 'functions/SessionError.php';
+
+// Je récupère mes classes pour mes messages erreurs et succès.
 require_once 'Classes/MessageError/LoginError.php';
 require_once 'Classes/MessageSuccess/AddFactureSuccess.php';
 require_once 'Classes/MessageError/AddFactureError.php';
@@ -12,23 +15,23 @@ require_once 'Layout/navbar.php';
 SessionError();
 
 // Récupération Base de donnée 
-require_once 'bdd-link/bdd-link.php';
+require_once __DIR__ . '/bdd-link/bdd-link.php';
 
-//  requête pour récuperer tous les clients de la BDD
-$query = "SELECT * FROM client";
-$stmt = $pdo->prepare($query);
-$stmt->execute();
+//  requête pour récuperer tous les clients de la BDD, pour la liste déroulante.
+$query_View_Client = "SELECT * FROM client";
+$stmt_View_Client = $pdo->prepare($query_View_Client);
+$stmt_View_Client->execute();
 ?>
 
 <?php
-// Afficher le message que la facture a été crée
+// Afficher le message que la facture a été créée
 if (array_key_exists('success', $_GET)) { ?>
 	<div class="alert alert-success text-center">
 		<?php echo FactureSuccess::getSuccessMessage(intval($_GET['success'])); ?>
 	</div>
 <?php } 
 
-//Afficher le message que le facture à bien été supprimé
+// Afficher le message que le facture à bien été supprimée
 if (array_key_exists('error', $_GET)) { ?>
 	<div class="alert alert-danger text-center">
 		<?php echo FactureError::getErrorMessage(intval($_GET['error'])); ?>
@@ -36,6 +39,7 @@ if (array_key_exists('error', $_GET)) { ?>
 <?php }
 ?>
 
+<!-- Création du formulaire pour ajouter une facture -->
 <div class="container mt-5">
 	<h2 class="text-center">Ajouter une facture</h2>
 	<a href="SearchFacture.php" class="btn btn-dark">Rechercher une facture</a>
@@ -43,8 +47,9 @@ if (array_key_exists('error', $_GET)) { ?>
 		<div class="row mt-5">
 			<div class="col-4">
 				<label for="client_id" class="form-label">Client :</label>
+				<!-- Liste déroulante pour afficher tous les clients dans une boucle -->
 				<select name="client_id" id="client" class="form-select" required>
-					<?php while ($row = $stmt->fetch()) { ?>
+					<?php while ($row = $stmt_View_Client->fetch()) { ?>
 						<option value="<?php echo $row['id']; ?>"><?php echo $row['nom']; ?></option>
 					<?php } ?>
 				</select>
@@ -81,7 +86,6 @@ if (array_key_exists('error', $_GET)) { ?>
 				<input type="number" id="prix_total" name="prix_total" class="form-control" required readonly>
 			</div>
 		</div>
-
 		<div class="row mt-5">
 			<div class="col text-center">
 				<button type="button" class="btn btn-primary" onclick="ajoutLigneFacture()">Ajouter une ligne de facture</button>
@@ -94,79 +98,3 @@ if (array_key_exists('error', $_GET)) { ?>
 <!-- Je viens récupérer mes scripts JS pour calculer automatiquement le prix total + le fichier pour ajouter des lignes dans la factures -->
 <script defer src="Assets/template/UpdatePrixTotal.js"></script>
 <script defer src="Assets/template/AddInvoiceLine.js"></script>
-
-
-<!-- Test v2 -->
-<script>
-	// function updatePrixTotal() {
-	// 	var quantites = document.querySelectorAll("#quantite");
-	// 	var prix_unitaires = document.querySelectorAll("#prix_unitaire");
-	// 	var prix_total = 0;
-	// 	for (i = 0; i < quantites.length; i++) {
-	// 		prix_total += quantites[i].value * prix_unitaires[i].value;
-	// 	}
-	// 	document.getElementById("prix_total").value = prix_total;
-	// }
-
-
-	// function ajoutLigneFacture() {
-	// 	var lignesFacture = document.getElementById("lignes_facture");
-	// 	var nouvelleLigneFacture = document.createElement("div");
-	// 	nouvelleLigneFacture.classList.add("lignes_facture");
-
-	// 	var index = lignesFacture.childElementCount; // on obtient le nombre de ligne actuelle 
-	// 	var labels = ["Description", "Quantité", "Prix unitaire"];
-	// 	var id = ["description", "quantite", "prix_unitaire"];
-	// 	// var obj = [{id: "description", label : "Description"},{id: "quantite", label : "Quantité"},{id: "prix_unitaire", label : "Prix unitaire}]
-
-	// 	for (var i = 0; i < labels.length; i++) {
-	// 		var label = document.createElement("label");
-	// 		label.textContent = labels[i] + " :";
-
-	// 		var input = document.createElement("input");
-	// 		input.type = i === 0 ? "text" : "number";
-	// 		// je configure l'attribut name, toLowerCase() = id est convertie en minuscule , il évite les problème de casse
-	// 		input.name = "lignes_facture[" + index + "][" + id[i].toLowerCase().replace("  ", "_") + "]";
-	// 		input.min = i === 1 ? 1 : 0;
-	// 		input.required = true;
-	// 		input.id = id[i];
-	// 		input.onchange = updatePrixTotal;
-
-	// 		nouvelleLigneFacture.appendChild(label);
-	// 		nouvelleLigneFacture.appendChild(input);
-	// 	}
-
-	// 	lignesFacture.appendChild(nouvelleLigneFacture);
-	// }
-</script>
-
-<!-- test v1 -->
-<?php
-// // on récupère le bouton pour ajouter les lignes
-// const btnAjouterChamp = document.querySelector("#ajouter_ligne");
-
-// // on récupère la div
-// const champsContainer = document.querySelector("#champs-container");
-
-// btnAjouterChamp.addEventListener("click", function() {
-// // on vient crée les nouveau champs
-// const champDesignation = document.createElement("input");
-// champDesignation.label = "designation";
-// champDesignation.type = "texte";
-// champDesignation.name = "designation[]";
-
-// const champQuantite = document.createElement("input");
-// champQuantite.label = "quantite";
-// champQuantite.type = "number";
-// champQuantite.name = "quantite[]";
-
-// const champPrixUnitaire = document.createElement("input");
-// champPrixUnitaire.label = "prix_unitaire";
-// champPrixUnitaire.type = "number";
-// champPrixUnitaire.name = "prix_unitaire[]";
-
-// // on ajoute les nouveaux champs au container
-// champsContainer.appendChild(champDesignation);
-// champsContainer.appendChild(champQuantite);
-// champsContainer.appendChild(champPrixUnitaire);
-// });

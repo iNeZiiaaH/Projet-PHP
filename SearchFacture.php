@@ -1,9 +1,6 @@
 <?php
-
-
-
 // Récupération Base de donnée 
-require_once 'bdd-link/bdd-link.php';
+require_once __DIR__ . '/bdd-link/bdd-link.php';
 
 //  requête pour récuperer tous les clients de la BDD
 $query = "SELECT * FROM client";

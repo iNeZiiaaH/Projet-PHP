@@ -6,7 +6,7 @@ require_once 'functions/SessionError.php';
 // fonction qui redirige vers la page de connexion si l'utilisateur essaye de passer par URL sans être connecter
 SessionError();
 
-require_once 'bdd-link/bdd-link.php';
+require_once __DIR__ . '/bdd-link/bdd-link.php';
 
 if (isset($_GET['id'])) {
     $clientid = $_GET['id'];
@@ -52,12 +52,13 @@ if (isset($_GET['id'])) {
         $pdf->Cell(30, 10, 'Total');
         $pdf->Ln();
 
+        // Requête pour récupere les lignes de chaque facture
         $query_Ligne_Facture = "SELECT * FROM Ligne_Facture WHERE id_facture = :id";
         $stmt_Ligne_Facture = $pdo->prepare($query_Ligne_Facture);
         $stmt_Ligne_Facture->execute(['id' => $stmt_Factures_Clients['id']]);
         $total_facture = 0;
 
-        // Boucle pour ajouter chaque ligne de la facture
+        // Boucle pour ajouter chaque ligne de la facture sous forme de tableau 
         while ($Ligne_Facture = $stmt_Ligne_Facture->fetch()) {
             $pdf->Cell(40, 10, $Ligne_Facture['description']);
             $pdf->Cell(30, 10, $Ligne_Facture['quantite']);

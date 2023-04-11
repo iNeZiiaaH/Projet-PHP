@@ -13,6 +13,7 @@ require_once 'Layout/header.php';
 require_once 'Layout/navbar.php';
 ?>
 
+<!-- formulaire pour ajouter un client -->
 <form class="row g-3" action="Add-Client-process.php" method="POST">
     <div class="col-md-6">
         <label for="inputEmail4" class="form-label">Email</label>

@@ -5,7 +5,7 @@ require_once 'Classes/MessageError/AddFactureError.php';
 require_once 'Classes/Facture.php';
 
 // récupération de la BDD
-require_once 'bdd-link/bdd-link.php';
+require_once __DIR__ . '/bdd-link/bdd-link.php';
 
 // Vérification si le formulaire a été soumis.
 if (isset($_POST['submit'])) {

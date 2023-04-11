@@ -6,7 +6,7 @@ require_once 'Classes/MessageError/IncompleteFields.php';
 require_once 'Classes/ClientCrud.php';
 
 // Récupération de la BDD
-require_once 'bdd-link/bdd-link.php';
+require_once __DIR__ . '/bdd-link/bdd-link.php';
 
 
 if (isset($_POST['modifier_client'])) {

@@ -1,10 +1,10 @@
 <?php
-// Récupération de la classe des erreurs 
+// Récupération de la classe des erreurs et success
 require_once 'Classes/MessageError/LoginError.php';
 require_once 'Classes/MessageSuccess/LogoutSuccess.php';
 ?>
 
-<h1 class="text-center">Connectez Vous !</h1>
+<h1 class="text-center text-white">Connectez Vous !</h1>
 
 <?php if (array_key_exists('error', $_GET)) { ?>
   <div class="alert alert-danger text-center">
@@ -18,7 +18,7 @@ if (array_key_exists('success', $_GET)) { ?>
   </div>
 <?php }
 
-require_once 'Layout/header.php'; ?>
+require_once 'Layout/headerLogin.php'; ?>
 
 </div>
 <form class="row col-lg-4 mx-auto mt-5 text-center" method="post" action="login-process.php">
