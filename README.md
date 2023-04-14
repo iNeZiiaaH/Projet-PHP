@@ -49,8 +49,8 @@ Première version pour ajouter une ligne pour la facture, que j'ai finalement pa
 
 Version final que j'ai finalement garder après plusieurs recherche sur internet et plusieurs essais, j'ai finalement réussie avec cette version.
 
-![Fonction Ajouter une ligne final](img/Version_final_ajouter_ligne.png)
+![Fonction Ajouter une ligne final](/Assets/img/Version_final_ajouter_ligne.png)
 
 Voici le formulaire qui va avec pour l'ajout de ligne :
 
-![Formulaire ajout de facture](img/Formulaire_facture.png)
+![Formulaire ajout de facture](/Assets/img/Formulaire_facture.png)

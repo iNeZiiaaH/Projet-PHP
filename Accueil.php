@@ -42,6 +42,7 @@ $stmt_client = $pdo->prepare("SELECT c.nom, COUNT(*) AS nombre_factures, SUM(f.t
 $stmt_client->execute();
 $clients = $stmt_client->fetchAll();
 
+// message de succés pour afficher que l'admin est bien
 if (array_key_exists('success', $_GET)) { ?>
     <div class="alert alert-success text-center">
         <?php echo LoginSuccess::getSuccessMessage(intval($_GET['success'])); ?>
