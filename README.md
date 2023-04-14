@@ -25,8 +25,8 @@ Le projet consiste en une application de gestion d'entreprise permettant d'ajout
 
 ### MCD ET MLD
 
-![MCD](img/MCD_Projet.png)
-![MLD](img/MLD_Projet.png)
+![MCD](Assets/img/MCD_Projet.png)
+![MLD](Assets/img/MLD_Projet.png)
 
 
 ## Problèmatique rencontrée au cours de ce projet
@@ -43,7 +43,7 @@ Le projet consiste en une application de gestion d'entreprise permettant d'ajout
 
 Première version pour ajouter une ligne pour la facture, que j'ai finalement pas garder suite à certain bug que je n'arrivais pas à résoudre.
 
-![Fonction Ajouter une ligne](img/Version_1_ajouter_ligne.png)
+![Fonction Ajouter une ligne](/Assetes/img/Version_1_ajouter_ligne.png)
 
 ### Version final 
 
