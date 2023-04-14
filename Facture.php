@@ -96,5 +96,5 @@ if (array_key_exists('error', $_GET)) { ?>
 </div>
 
 <!-- Je viens récupérer mes scripts JS pour calculer automatiquement le prix total + le fichier pour ajouter des lignes dans la factures -->
-<script defer src="Assets/template/UpdatePrixTotal.js"></script>
-<script defer src="Assets/template/AddInvoiceLine.js"></script>
+<script defer src="JS/UpdatePrixTotal.js"></script>
+<script defer src="JS/AddInvoiceLine.js"></script>
