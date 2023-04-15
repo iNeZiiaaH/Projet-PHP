@@ -16,7 +16,7 @@ Le projet consiste en une application de gestion d'entreprise permettant d'ajout
 
 Pour configurer l'accès à MySQL, créer dans le dossier config/ un fichier db.ini avec la structure suivante :
 
-![config_bdd](Assets/img/Config_BDD)
+![config_bdd](Assets/img/Config_BDD.png)
 
 ## Les Étapes pour réaliser ce projet
 
