@@ -21,7 +21,7 @@ $stmt->execute([$id_client]);
 $donnees_client = $stmt->fetch(PDO::FETCH_ASSOC);
 
 
-// On stocks les informations du clients dans des variables
+// On stocks les informations du clients dans des variables pour pouvoir les afficher directement dans le formulaire pour éviter de tout réecrire les informations du client.
 $email = $donnees_client['email'];
 $nom = $donnees_client['nom'];
 $domaine = $donnees_client['domaine'];
@@ -79,13 +79,14 @@ if (array_key_exists('success', $_GET)) { ?>
     </div>
 <?php }
 
-// affichage de modification du client réusssie
+// affichage d'erreur si la modification du client a échouer
 if (array_key_exists('error', $_GET)) { ?>
     <div class="alert alert-danger text-center">
         <?php echo ModifyClientError::getErrorMessage(intval($_GET['error'])); ?>
     </div>
 <?php }
 
+// Message erreur si tous les champs ne sont pas renseigner
 if (array_key_exists('error', $_GET)) { ?>
     <div class="alert alert-danger text-center">
         <?php echo IncompleteFields::getErrorMessage(intval($_GET['error'])); ?>

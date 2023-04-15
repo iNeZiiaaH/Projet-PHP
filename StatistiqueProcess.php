@@ -7,6 +7,7 @@ $statistique = new Statistique($pdo);
 if (isset($_GET['id'])) {
 
     $client_id = $_GET['id'];
+    // Je récupére la méthode pour récupèrer les statistiques de chaque client
     $clientDetails = $statistique->getClientDetails($client_id);
 ?>
     <div class="container">

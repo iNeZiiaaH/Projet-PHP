@@ -48,18 +48,21 @@ require_once 'Layout/navbar.php';
     </div>
 </form>
 
+<!-- Message de succès quand on ajoute un client. -->
 <?php if (array_key_exists('success', $_GET)) { ?>
     <div class="alert alert-success text-center">
         <?php echo ClientSuccess::getSuccessMessage(intval($_GET['success'])); ?>
     </div>
 <?php }
 
+// Message erreur quand on ajoute un client.
 if (array_key_exists('error', $_GET)) { ?>
     <div class="alert alert-danger text-center">
         <?php echo ClientError::getErrorMessage(intval($_GET['error'])); ?>
     </div>
 <?php }
 
+// Message erreurs si un des champs obligatoire pour ajouter un client n'est pas remplie.
 if (array_key_exists('error', $_GET)) { ?>
     <div class="alert alert-danger text-center">
         <?php echo IncompleteFields::getErrorMessage(intval($_GET['error'])); ?>

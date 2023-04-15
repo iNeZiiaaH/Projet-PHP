@@ -1,13 +1,15 @@
 <?php
-// je récupère ma classe ViewClient
+// je récupère ma classe ClientCrud pour récupèrer la méthode pour afficher les clients.
 require_once 'Classes/ClientCrud.php';
 
 // on crée une instance de la classe ViewClient
 $InfoClient = new ClientCrud($pdo);
 
 if (isset($_GET['id'])) {
+    // Je récupère la méthode pour afficher les clients.
     echo $InfoClient->ViewClient($_GET['id']); ?>
 
+<!-- J'affiche les clients sous forme de carte avec toutes les informations de chaque client et je rajoute deux boutons un pour le modifier et un autre pour le supprimer. -->
     <div class="card d-flex mx-auto mt-5" style="width: 18rem;">
         <div class="card-body text-center">
             <h5 class="card-title">Client : <?php echo $InfoClient->getNom() ?></h5>

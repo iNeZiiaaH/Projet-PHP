@@ -8,6 +8,7 @@ require_once 'Classes/MessageError/LoginError.php';
 require_once 'Classes/MessageSuccess/AddFactureSuccess.php';
 require_once 'Classes/MessageError/AddFactureError.php';
 
+// Je récupère mon header et ma navbar
 require_once 'Layout/header.php';
 require_once 'Layout/navbar.php';
 
@@ -98,3 +99,6 @@ if (array_key_exists('error', $_GET)) { ?>
 <!-- Je viens récupérer mes scripts JS pour calculer automatiquement le prix total + le fichier pour ajouter des lignes dans la factures -->
 <script defer src="JS/UpdatePrixTotal.js"></script>
 <script defer src="JS/AddInvoiceLine.js"></script>
+
+<?php
+require_once 'Layout/footer.php';

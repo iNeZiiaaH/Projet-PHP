@@ -4,14 +4,16 @@ require_once 'Classes/MessageError/LoginError.php';
 require_once 'Classes/MessageSuccess/LogoutSuccess.php';
 ?>
 
-<h1 class="text-center text-white">Connectez Vous !</h1>
+<h1 class="text-center text-white mt-5">Connectez Vous !</h1>
 
+<!-- Message erreur en cas de login ou mot de passe incorrect -->
 <?php if (array_key_exists('error', $_GET)) { ?>
   <div class="alert alert-danger text-center">
     <?php echo LoginError::getErrorMessage(intval($_GET['error'])); ?>
   </div>
 <?php }
 
+// Message pour dire que utilisateur c'est bien déconnecté
 if (array_key_exists('success', $_GET)) { ?>
   <div class="alert alert-success text-center">
     <?php echo LogoutSuccess::getSuccessMessage(intval($_GET['success'])); ?>

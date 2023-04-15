@@ -1,6 +1,4 @@
 <?php
-require_once 'functions/FlashMessage.php';
-
 class login
 {
 

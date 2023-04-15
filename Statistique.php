@@ -35,6 +35,7 @@ require_once 'Layout/navbar.php'; ?>
 </div>
 
 <?php
-
+// Récupération du processus pour afficher les stats des clients
 require_once 'StatistiqueProcess.php';
+
 require_once 'Layout/footer.php';

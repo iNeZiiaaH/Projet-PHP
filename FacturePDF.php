@@ -1,5 +1,8 @@
 <?php
+// Je récupère la classe tfpdf pour pouvoir crée une facture sous forme de PDF.
 require_once 'tfpdf/tfpdf.php';
+
+// Je récupère mes fonctions redirect et session error.
 require_once 'functions/utils.php';
 require_once 'functions/SessionError.php';
 
@@ -22,6 +25,7 @@ if (isset($_GET['id'])) {
     ]);
 
     if ($stmt_Factures_Clients = $stmt_Facture_Client->fetch()) {
+        // J'instancie la classe tFPDF 
         $pdf = new tFPDF();
         
         // Ajoute une police Unicode (utilise UTF-8)
@@ -33,7 +37,7 @@ if (isset($_GET['id'])) {
         $pdf->AddPage();
         $pdf->Cell(40, 10, 'Facture pour : ' . $stmt_Factures_Clients['nom_client']); // ajout du nom du client
         $pdf->Ln();
-        $pdf->Cell(40, 10, 'Facture n°' . $stmt_Factures_Clients['numero_facture']);
+        $pdf->Cell(40, 10, 'Facture n°' . $stmt_Factures_Clients['numero_facture']); 
 
         // Ajout de contenu de la facture
         $pdf->Ln(); //pour sauter une ligne
@@ -44,7 +48,7 @@ if (isset($_GET['id'])) {
         $pdf->Cell(0, 10, 'Commentaire : ' . $stmt_Factures_Clients['commentaire']);
         $pdf->Ln();
 
-        // Ajout d'un tableau avec les lignes de la facture
+        // Ajout d'un tableau avec les lignes de la facture.
         $pdf->SetFont('DejaVu', '', 12);
         $pdf->SetFillColor($secondary_color[0], $secondary_color[1], $secondary_color[2]);
         $pdf->SetDrawColor(204, 204, 204);
@@ -57,13 +61,13 @@ if (isset($_GET['id'])) {
         $pdf->SetFont('DejaVu', '', 12);
         $pdf->SetFillColor(255, 255, 255);
 
-        // Requête pour récupere les lignes de chaque facture
+        // Requête pour récupere les lignes de chaque facture.
         $query_Ligne_Facture = "SELECT * FROM Ligne_Facture WHERE id_facture = :id";
         $stmt_Ligne_Facture = $pdo->prepare($query_Ligne_Facture);
         $stmt_Ligne_Facture->execute(['id' => $stmt_Factures_Clients['id']]);
         $total_facture = 0;
 
-        // Boucle pour ajouter chaque ligne de la facture sous forme de tableau 
+        // Boucle pour ajouter chaque ligne de la facture sous forme de tableau. 
         while ($Ligne_Facture = $stmt_Ligne_Facture->fetch()) {
             $pdf->Cell(90, 10, $Ligne_Facture['description']);
             $pdf->Cell(30, 10, $Ligne_Facture['quantite']);
@@ -74,11 +78,11 @@ if (isset($_GET['id'])) {
             $pdf->Ln();
         }
 
-        // Ajout du total de la facture
+        // Ajout du total de la facture.
         $pdf->Cell(150, 10, 'Total facture : ');
         $pdf->Cell(90, 10, number_format($total_facture, 2, ',', ' ') . '€');
 
-        // Afficher la Facture sous formle de PDF dans un onglet grâce au 'I'
+        // Afficher la Facture sous formle de PDF dans un onglet grâce au 'I'.
         $pdf->Output('I', 'facture.pdf');
     }
 }

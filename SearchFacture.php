@@ -26,5 +26,7 @@ require_once 'Layout/navbar.php';
 </div>
 
 <?php
+// Je vien récupèrer le processus pour rechercher une facture
 require_once 'SearchFactureProcess.php';
+
 require_once 'Layout/footer.php';

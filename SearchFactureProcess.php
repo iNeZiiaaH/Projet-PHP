@@ -5,11 +5,12 @@ require_once 'Classes/MessageError/LoginError.php';
 
 // fonction qui redirige vers la page de connexion si l'utilisateur essaye de passer par URL sans être connecter
 SessionError();
-// je verifie si id du client est défénie dans URL. Si il est définie je le stock dans une variable, puis j'effectue ma requête pour récupérer toutes les factures de chaque client.
 
+// je verifie si id du client est défénie dans URL. Si il est définie je le stock dans une variable, puis j'effectue ma requête pour récupérer toutes les factures de chaque client.
 if (isset($_GET['id'])) {
     $clientid = $_GET['id'];
 
+    // Première requête pour récupèrer le nom du client pour la facture
     $query_client = "SELECT nom FROM client WHERE id = :client_id";
     $stmt_client = $pdo->prepare($query_client);
     $stmt_client->execute([
@@ -17,6 +18,7 @@ if (isset($_GET['id'])) {
     ]);
     $client_nom = $stmt_client->fetchColumn();
 
+    // Deucième requête pour récupèrer les infos de la facture pour chaque client
     $query_Facture = "SELECT * FROM Facture WHERE client_id = :client_id";
     $stmt_Facture = $pdo->prepare($query_Facture);
     $stmt_Facture->execute([
@@ -31,6 +33,7 @@ if (isset($_GET['id'])) {
 
         <!-- j'effectue une première boucle pour parcourir chaque facture et récupérer les informations. -->
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            <!-- Boucle pour récupèrer les informations de chaque facture -->
             <?php while ($stmt_Factures = $stmt_Facture->fetch()) { ?>
                 <div class="col">
                     <div class="card border-dark">
@@ -52,6 +55,7 @@ if (isset($_GET['id'])) {
                             ?>
 
                             <ul class="list-group list-group-flush">
+                                <!-- Boucle qui vient récupérer les infos des lignes de factures de chaque facture Associés -->
                                 <?php while ($Ligne_Facture = $stmt_Ligne_Facture->fetch()) { ?>
                                     <li class="list-group-item">
                                         <div class="d-flex justify-content-between">
@@ -67,7 +71,7 @@ if (isset($_GET['id'])) {
                                 <?php } ?>
                             </ul>
 
-                            <!-- Bonus essayer éditer la facture son forme de PDF avec FPDF -->
+                            <!-- Bouton pour télécharger les factures en PDF -->
                             <div class="mt-3 text-end">
                                 <a href="FacturePDF.php?id=<?php echo $stmt_Factures['id']; ?>" class="btn btn-sm btn-dark">Télécharger</a>
                             </div>

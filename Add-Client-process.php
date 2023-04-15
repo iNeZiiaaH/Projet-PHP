@@ -17,6 +17,7 @@ SessionError();
 
 // Condition pour que les champs sois tous remplis sinon il ne peut pas envoyer la requête
 if (empty($_POST['email']) || empty($_POST['nom']) || empty($_POST['domaine']) || empty($_POST['adresse']) || empty($_POST['ville']) || empty($_POST['code_postal']) || empty($_POST['pays'])) {
+    // redirection vers la page pour ajouter les clients avec un message d'erreurs.
     redirect('Add-Client.php?error=' . IncompleteFields::INCOMPLETE_FIELDS);
     exit;
 }
