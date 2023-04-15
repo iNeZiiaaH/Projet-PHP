@@ -1,38 +1,83 @@
 <?php
+require_once 'functions/SessionError.php';
+require_once 'functions/utils.php';
+require_once 'Classes/MessageError/LoginError.php';
 
+// fonction qui redirige vers la page de connexion si l'utilisateur essaye de passer par URL sans être connecter
+SessionError();
+
+// je verifie si id du client est défénie dans URL. Si il est définie je le stock dans une variable, puis j'effectue ma requête pour récupérer toutes les factures de chaque client.
 if (isset($_GET['id'])) {
     $clientid = $_GET['id'];
 
-    $query = "SELECT * FROM Facture WHERE client_id = :client_id";
-    $stmt = $pdo->prepare($query);
-    $stmt->execute([
+    // Première requête pour récupèrer le nom du client pour la facture
+    $query_client = "SELECT nom FROM client WHERE id = :client_id";
+    $stmt_client = $pdo->prepare($query_client);
+    $stmt_client->execute([
         'client_id' => $clientid
-    ]); ?>
+    ]);
+    $client_nom = $stmt_client->fetchColumn();
 
-    <div class="row row-cols-4 justify-content-center gap-4">
-        <?php while ($stmt1 = $stmt->fetch()) { ?>
-            <div class="d-flex card  mt-5" style="width: 18rem;">
-                <div class="card-body text-center">
-                    <h5 class="card-title"> Facture n°<?php echo $stmt1['numero_facture']; ?></h5>
-                    <p class="card-text"> Date :<?php echo $stmt1['date_facture'] ?></p>
-                    <p class="card-text"> Commentaire :<?php echo $stmt1['commentaire'] ?></p>
+    // Deucième requête pour récupèrer les infos de la facture pour chaque client
+    $query_Facture = "SELECT * FROM Facture WHERE client_id = :client_id";
+    $stmt_Facture = $pdo->prepare($query_Facture);
+    $stmt_Facture->execute([
+        'client_id' => $clientid
+    ]);
 
-                    <?php
-                    $query2 = "SELECT * FROM Ligne_Facture WHERE id_facture = :id";
-                    $stmt2 = $pdo->prepare($query2);
-                    $stmt2->execute([
-                        'id' => $stmt1["id"]
-                    ]);
+?>
+    <div class="container mt-3 text-center">
+        <h2>Liste des factures</h2>
+        <hr>
+        <h3 class="mb-3">Facture pour le client : <?php echo $client_nom; ?></h3>
 
-                    while ($row = $stmt2->fetch()) { ?>
-                        <p class="card-text">Produit : <?php echo $row['designation'] ?></p>
-                        <p class="card-text">Quantité : <?php echo $row['quantite'] ?></p>
-                        <p class="card-text">Prix unitaire : <?php echo $row['prix_unitaire'] ?>€</p>
-                        <p class="card-text">Prix total : <?php echo $row['prix_total'] ?>€</p>
+        <!-- j'effectue une première boucle pour parcourir chaque facture et récupérer les informations. -->
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            <!-- Boucle pour récupèrer les informations de chaque facture -->
+            <?php while ($stmt_Factures = $stmt_Facture->fetch()) { ?>
+                <div class="col">
+                    <div class="card border-dark">
+                        <div class="card-header">
+                            <h5 class="card-title m-0">Facture n° <?php echo $stmt_Factures['numero_facture']; ?></h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text"> Date : <?php echo $stmt_Factures['date_facture'] ?></p>
+                            <p class="card-text"> Total : <?php echo $stmt_Factures['total'] ?>€</p>
+                            <p class="card-text"> Commentaire : <?php echo $stmt_Factures['commentaire'] ?></p>
 
+                            <!-- j'effectue ma deuxième requête pour récupérer les informations des lignes de la factures en effectuant une boucle. -->
+                            <?php
+                            $query_Ligne_Facture = "SELECT * FROM Ligne_Facture WHERE id_facture = :id";
+                            $stmt_Ligne_Facture = $pdo->prepare($query_Ligne_Facture);
+                            $stmt_Ligne_Facture->execute([
+                                'id' => $stmt_Factures["id"]
+                            ]);
+                            ?>
+
+                            <ul class="list-group list-group-flush">
+                                <!-- Boucle qui vient récupérer les infos des lignes de factures de chaque facture Associés -->
+                                <?php while ($Ligne_Facture = $stmt_Ligne_Facture->fetch()) { ?>
+                                    <li class="list-group-item">
+                                        <div class="d-flex justify-content-between">
+                                            <div class="me-auto">
+                                                <p class="card-text">Produit : <?php echo $Ligne_Facture['description'] ?></p>
+                                                <p class="card-text">Quantité : <?php echo $Ligne_Facture['quantite'] ?></p>
+                                            </div>
+                                            <div class="text-end">
+                                                <p class="card-text">Prix unitaire : <?php echo $Ligne_Facture['prix_unitaire'] ?>€</p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                <?php } ?>
+                            </ul>
+
+                            <!-- Bouton pour télécharger les factures en PDF -->
+                            <div class="mt-3 text-end">
+                                <a href="FacturePDF.php?id=<?php echo $stmt_Factures['id']; ?>" class="btn btn-sm btn-dark">Télécharger</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            <?php } ?>
+        </div>
     <?php }
-                } ?>
-    </div>
-<?php }

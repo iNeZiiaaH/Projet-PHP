@@ -1,19 +1,19 @@
 <?php
 require_once 'functions/utils.php';
-require_once 'Classes/LoginError.php';
-require_once 'Classes/AddClientError.php';
-require_once 'Classes/AddClientSuccess.php';
+require_once 'functions/SessionError.php';
+require_once 'Classes/MessageError/LoginError.php';
+require_once 'Classes/MessageError/AddClientError.php';
+require_once 'Classes/MessageError/IncompleteFields.php';
+require_once 'Classes/MessageSuccess/AddClientSuccess.php';
 
-// condition qui dis que si utilisateur n'est pas connecté alors il est renvoyé vers la page login.php
-session_start();
-if ($_SESSION == false) {
-    redirect('login.php?error=' . LoginError::CONNECTION_FAILED);
-}
+// fonction qui redirige vers la page de connexion si l'utilisateur essaye de passer par URL sans être connecter
+SessionError();
 
 require_once 'Layout/header.php';
 require_once 'Layout/navbar.php';
 ?>
 
+<!-- formulaire pour ajouter un client -->
 <form class="row g-3" action="Add-Client-process.php" method="POST">
     <div class="col-md-6">
         <label for="inputEmail4" class="form-label">Email</label>
@@ -48,16 +48,25 @@ require_once 'Layout/navbar.php';
     </div>
 </form>
 
+<!-- Message de succès quand on ajoute un client. -->
 <?php if (array_key_exists('success', $_GET)) { ?>
     <div class="alert alert-success text-center">
         <?php echo ClientSuccess::getSuccessMessage(intval($_GET['success'])); ?>
     </div>
 <?php }
 
+// Message erreur quand on ajoute un client.
 if (array_key_exists('error', $_GET)) { ?>
     <div class="alert alert-danger text-center">
-        <?php echo ClientErro::getErrorMessage(intval($_GET['error'])); ?>
+        <?php echo ClientError::getErrorMessage(intval($_GET['error'])); ?>
     </div>
 <?php }
 
-require_once 'Layout/footer.php'; ?>
+// Message erreurs si un des champs obligatoire pour ajouter un client n'est pas remplie.
+if (array_key_exists('error', $_GET)) { ?>
+    <div class="alert alert-danger text-center">
+        <?php echo IncompleteFields::getErrorMessage(intval($_GET['error'])); ?>
+    </div>
+<?php }
+
+require_once 'Layout/footer.php';

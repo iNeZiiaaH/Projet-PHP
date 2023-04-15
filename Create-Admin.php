@@ -1,4 +1,11 @@
 <?php
+require_once 'functions/utils.php';
+require_once 'functions/SessionError.php';
+require_once 'Classes/MessageError/LoginError.php';
+
+// fonction qui redirige vers la page de connexion si l'utilisateur essaye de passer par URL sans être connecter
+SessionError();
+
 require_once 'bdd-link/bdd-link.php';
 
 $login = "admin";

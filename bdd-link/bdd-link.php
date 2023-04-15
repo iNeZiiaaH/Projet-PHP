@@ -9,7 +9,7 @@
     'password' => $password
 ] = parse_ini_file(__DIR__ . "/../config/db.ini");
 
-$dsn = "mysql:host=host.docker.internal;port=8889;dbname=Projet_PHP;charset=utf8mb4";
+$dsn = "mysql:host=$host;port=$port;dbname=$dbname;charset=$charset";
 
 $options = [
     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,

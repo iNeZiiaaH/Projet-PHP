@@ -1,15 +1,6 @@
 <?php
-require_once 'functions/utils.php';
-require_once 'Classes/LoginError.php';
-
-// condition qui dis que si utilisateur n'est pas connecté alors il est renvoyé vers la page login.php
-session_start();
-if ($_SESSION == false) {
-    redirect('login.php?error=' . LoginError::CONNECTION_FAILED);
-}
-
 // Récupération Base de donnée 
-require_once 'bdd-link/bdd-link.php';
+require_once __DIR__ . '/bdd-link/bdd-link.php';
 
 //  requête pour récuperer tous les clients de la BDD
 $query = "SELECT * FROM client";
@@ -35,5 +26,7 @@ require_once 'Layout/navbar.php';
 </div>
 
 <?php
+// Je vien récupèrer le processus pour rechercher une facture
 require_once 'SearchFactureProcess.php';
+
 require_once 'Layout/footer.php';
