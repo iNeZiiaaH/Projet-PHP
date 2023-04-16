@@ -1,5 +1,13 @@
 <?php
 require_once 'Classes/Statistique.php';
+require_once 'Classes/MessageError/LoginError.php';
+require_once 'functions/SessionError.php';
+require_once 'functions/utils.php';
+
+require_once __DIR__ . '/bdd-link/bdd-link.php';
+
+SessionError();
+
 
 // on instancie la classe Statistique
 $statistique = new Statistique($pdo);

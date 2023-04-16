@@ -7,9 +7,6 @@ require_once 'functions/SessionError.php';
 require_once 'Classes/MessageError/LoginError.php';
 require_once 'Classes/MessageSuccess/DeleteClientSuccess.php';
 
-// fonction qui redirige vers la page de connexion si l'utilisateur essaye de passer par URL sans être connecter
-SessionError();
-
 // Récupération Base de donnée 
 require_once __DIR__ . '/bdd-link/bdd-link.php';
 

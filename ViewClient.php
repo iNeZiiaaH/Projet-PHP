@@ -1,6 +1,11 @@
 <?php
 // je récupère ma classe ClientCrud pour récupèrer la méthode pour afficher les clients.
 require_once 'Classes/ClientCrud.php';
+require_once 'Classes/MessageError/LoginError.php';
+require_once 'functions/utils.php';
+require_once 'functions/SessionError.php';
+
+SessionError();
 
 // on crée une instance de la classe ViewClient
 $InfoClient = new ClientCrud($pdo);

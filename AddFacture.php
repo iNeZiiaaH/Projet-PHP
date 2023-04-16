@@ -1,8 +1,12 @@
 <?php
 require_once 'functions/utils.php';
+require_once 'functions/SessionError.php';
 require_once 'Classes/MessageSuccess/AddFactureSuccess.php';
 require_once 'Classes/MessageError/AddFactureError.php';
+require_once 'Classes/MessageError/LoginError.php';
 require_once 'Classes/Facture.php';
+
+SessionError();
 
 // récupération de la BDD
 require_once __DIR__ . '/bdd-link/bdd-link.php';
